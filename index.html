@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css">
 <link rel="stylesheet" type="text/css" href="index.css">
 
 <div>
@@ -24,6 +25,7 @@
 			
 			<select id="country-filter" name="states[]" multiple="multiple"></select>
 		</label>
+		<div id="country-color"></div>
 	  </div>
   </div>
 </div>
@@ -32,183 +34,6 @@
 
 <script src="http://d3js.org/d3.v4.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script src="index.js"></script>
 
-<script>
-
-const margin = {top: 40, right: 120, bottom: 30, left: 40};
-var height, width, x, y;
-let states_1, tipBox_1;
-var tooltip_1, tooltipLine_1;
-
-tooltip_1 = d3.select('#tooltip_1');
-
-function removeTooltip_1() {
-  if (tooltip_1) tooltip_1.style('display', 'none');
-  if (tooltipLine_1) tooltipLine_1.attr('stroke', 'none');
-}
-
-function drawTooltip_1() {
-  const year = Math.floor((x.invert(d3.mouse(tipBox_1.node())[0]) + 5) / 10) * 10;
-  
-  states_1.sort((a, b) => {
-    return b.history.find(h => h.year == year).population - a.history.find(h => h.year == year).population;
-  })  
-    
-  tooltipLine_1.attr('stroke', 'black')
-    .attr('x1', x(year))
-    .attr('x2', x(year))
-    .attr('y1', 0)
-    .attr('y2', height);
-  
-  tooltip_1.html(year)
-    .style('display', 'block')
-    .style('left', d3.event.pageX + 20)
-    .style('top', d3.event.pageY - 20)
-    .selectAll()
-    .data(states_1).enter()
-    .append('div')
-    .style('color', d => d.color)
-    .html(d => d.name + ': ' + d.history.find(h => h.year == year).population);
-}
-
-function initRange() {
-	// Define margins, dimensions, and some line colors
-	width = $("#chart_1").width() - margin.left - margin.right;
-	height = $("#chart_1").height() - margin.top - margin.bottom;
-
-	// Define the scales and tell D3 how to draw the line
-	x = d3.scaleLinear().domain([1910, 2010]).range([0, width]);     
-	y = d3.scaleLinear().domain([0, 40000000]).range([height, 0]);
-}
-
-function drawGraph_1() {
-
-	d3.select('#chart_1').selectAll("*").remove();
-	const chart = d3.select('#chart_1').append('g')
-	  .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-	
-	tooltipLine_1 = chart.append('line');
-	
-	// Add the axes and a title
-	const xAxis = d3.axisBottom(x).tickFormat(d3.format('.4'));
-	const yAxis = d3.axisLeft(y).tickFormat(d3.format('.2s'));
-	chart.append('g').call(yAxis); 
-	chart.append('g').attr('transform', 'translate(0,' + height + ')').call(xAxis);
-	chart.append('text').html('State Population Over Time').attr('x', $("#chart_1").width()/3);
-	  
-	const line = d3.line().x(d => x(d.year)).y(d => y(d.population));
-	
-	// Load the data and draw a chart
-	d3.json('state-populations.json', d => {
-	  states_1 = d;
-
-	  chart.selectAll()
-		.data(states_1.filter(function(d){ return d.show; }))
-		.enter().append('path')
-		.attr('fill', 'none')
-		.attr('stroke', d => d.color)
-		.attr('stroke-width', 2)
-		.datum(d => d.history)
-		.attr('d', line);
-	  
-	  chart.selectAll()
-		.data(states_1.filter(function(d){ return d.show; }))
-		.enter().append('text')
-		.html(d => d.name)
-		.attr('fill', d => d.color)
-		.attr('alignment-baseline', 'middle')
-		.attr('x', width)
-		.attr('dx', '.5em')
-		.attr('y', d => y(d.currentPopulation)); 
-	  
-	  tipBox_1 = chart.append('rect')
-		.attr('width', width)
-		.attr('height', height)
-		.attr('opacity', 0)
-		.on('mousemove', drawTooltip_1)
-		.on('mouseout', removeTooltip_1);
-	})
-}
-
-$(document).ready(function() {
-    countries = [
-		{"id": "Argentina", "text": "Argentina"},
-		{"id": "Australia", "text": "Australia"},
-		{"id": "Austria", "text": "Austria"},
-		{"id": "Bahrain", "text": "Bahrain"},
-		{"id": "Belgium", "text": "Belgium"},
-		{"id": "Brazil", "text": "Brazil"},
-		{"id": "Canada", "text": "Canada"},
-		{"id": "China", "text": "China"},
-		{"id": "Croatia", "text": "Croatia"},
-		{"id": "Czech Republic", "text": "Czech Republic"},
-		{"id": "Denmark", "text": "Denmark"},
-		{"id": "Dominican Rep.", "text": "Dominican Rep."},
-		{"id": "Egypt", "text": "Egypt"},
-		{"id": "Finland", "text": "Finland"},
-		{"id": "France", "text": "France"},
-		{"id": "Germany", "text": "Germany"},
-		{"id": "Greece", "text": "Greece"},
-		{"id": "Hong Kong, China", "text": "Hong Kong, China"},
-		{"id": "Hungary", "text": "Hungary"},
-		{"id": "India", "text": "India"},
-		{"id": "Indonesia", "text": "Indonesia"},
-		{"id": "Ireland", "text": "Ireland"},
-		{"id": "Italy", "text": "Italy"},
-		{"id": "Japan", "text": "Japan"},
-		{"id": "Jordan", "text": "Jordan"},
-		{"id": "Korea (Rep.)", "text": "Korea (Rep.)"},
-		{"id": "Macao, China", "text": "Macao, China"},
-		{"id": "Malaysia", "text": "Malaysia"},
-		{"id": "Mexico", "text": "Mexico"},
-		{"id": "Morocco", "text": "Morocco"},
-		{"id": "Netherlands", "text": "Netherlands"},
-		{"id": "Norway", "text": "Norway"},
-		{"id": "Poland", "text": "Poland"},
-		{"id": "Portugal", "text": "Portugal"},
-		{"id": "Romania", "text": "Romania"},
-		{"id": "Russian Federation", "text": "Russian Federation"},
-		{"id": "Saudi Arabia", "text": "Saudi Arabia"},
-		{"id": "Singapore", "text": "Singapore"},
-		{"id": "South Africa", "text": "South Africa"},
-		{"id": "Spain", "text": "Spain"},
-		{"id": "Sweden", "text": "Sweden"},
-		{"id": "Switzerland", "text": "Switzerland"},
-		{"id": "Thailand", "text": "Thailand"},
-		{"id": "Tunisia", "text": "Tunisia"},
-		{"id": "Turkey", "text": "Turkey"},
-		{"id": "United Arab Emirates", "text": "United Arab Emirates"},
-		{"id": "United Kingdom", "text": "United Kingdom"},
-		{"id": "United States", "text": "United States"},
-		{"id": "Viet Nam", "text": "Viet Nam"},
-		{"id": "Zimbabwe", "text": "Zimbabwe"}
-	]
-	
-	$('#country-filter').select2({
-		data: countries,
-		multiple: true,
-		maximumSelectionLength: 5,
-		debug: true,
-		placeholder: "Select up to 5 country to display",
-		allowClear: true,
-	});
-	
-	initRange();
-	drawGraph_1();
-});
-
-$('#country-filter').on('select2:select', function (e) {
-	console.log($('#country-filter').val());
-});
-
-$('#country-filter').on('select2:unselect', function (e) {
-	console.log($('#country-filter').val());
-});
-
-window.onresize = function(event) {
-	initRange();
-    drawGraph_1();
-};
-</script>
