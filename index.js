@@ -1,6 +1,9 @@
 const margin = {top: 40, right: 40, bottom: 30, left: 40};
+const line = d3.line().x(d => x(d.year)).y(d => y(d.population));
+
 var height, width, x, y;
-let states_1, tipBox_1;
+var chart_1;
+var states_1, tipBox_1;
 var tooltip_1, tooltipLine_1;
 
 countries = [
@@ -97,49 +100,53 @@ function initRange() {
 
 function drawGraph_1() {
 	d3.select('#chart_1').selectAll("*").remove();
-	const chart = d3.select('#chart_1').append('g')
+	chart_1 = d3.select('#chart_1').append('g')
 	  .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 	
-	tooltipLine_1 = chart.append('line');
+	tooltipLine_1 = chart_1.append('line');
 	
 	// Add the axes and a title
 	const xAxis = d3.axisBottom(x).tickFormat(d3.format('.4'));
 	const yAxis = d3.axisLeft(y).tickFormat(d3.format('.2s'));
-	chart.append('g').call(yAxis); 
-	chart.append('g').attr('transform', 'translate(0,' + height + ')').call(xAxis);
-	chart.append('text').html('State Population Over Time').attr('x', $("#chart_1").width()/3);
-	  
-	const line = d3.line().x(d => x(d.year)).y(d => y(d.population));
+	chart_1.append('g').call(yAxis); 
+	chart_1.append('g').attr('transform', 'translate(0,' + height + ')').call(xAxis);
+	chart_1.append('text').html('State Population Over Time').attr('x', $("#chart_1").width()/3);
 	
-	// Load the data and draw a chart
-	d3.json('state-populations.json', d => {
-	  states_1 = d;
+	drawLines_1();
+}
 
-	  chart.selectAll()
-		.data(states_1.filter(function(d){ return d.show; }))
-		.enter().append('path')
-		.attr('fill', 'none')
-		.attr('stroke', d => d.color)
-		.attr('stroke-width', 2)
-		.datum(d => d.history)
-		.attr('d', line);
-	  
-	  // chart.selectAll()
-		// .data(states_1.filter(function(d){ return d.show; }))
-		// .enter().append('text')
-		// .html(d => d.name)
-		// .attr('fill', d => d.color)
-		// .attr('alignment-baseline', 'middle')
-		// .attr('x', width)
-		// .attr('dx', '.5em')
-		// .attr('y', d => y(d.currentPopulation)); 
-	  
-	  tipBox_1 = chart.append('rect')
-		.attr('width', width)
-		.attr('height', height)
-		.attr('opacity', 0)
-		.on('mousemove', drawTooltip_1)
-		.on('mouseout', removeTooltip_1);
+function drawLines_1() {
+	// Load the data and draw a chart_1
+	d3.json('state-populations.json', d => {
+	  	states_1 = d;
+
+	  	paths = chart_1.append("g").selectAll("path")
+			.data(states_1.filter(function(d){return d.show;}))
+
+		// Update Existing
+		paths.attr('fill', 'none')
+			.attr('stroke', d => d.color)
+			.attr('stroke-width', 2)
+			.datum(d => d.history)
+			.attr('d', line);
+
+		// Add new
+		paths.enter().append("path")
+			.attr('fill', 'none')
+			.attr('stroke', d => d.color)
+			.attr('stroke-width', 2)
+			.datum(d => d.history)
+			.attr('d', line);
+		
+		// Remove excess
+		paths.exit().remove();
+
+	  	tipBox_1 = chart_1.append('rect')
+			.attr('width', width)
+			.attr('height', height)
+			.attr('opacity', 0)
+			.on('mousemove', drawTooltip_1)
+			.on('mouseout', removeTooltip_1);
 	})
 }
 
