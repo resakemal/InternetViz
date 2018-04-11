@@ -117,7 +117,7 @@ function drawGraph_1() {
 
 function drawLines_1() {
 	// Load the data and draw a chart_1
-	d3.json('state-populations.json', d => {
+	d3.json('data/state-populations.json', d => {
 	  	states_1 = d;
 
 	  	paths = chart_1.append("g").selectAll("path")
