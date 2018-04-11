@@ -181,6 +181,8 @@ function countryFilterChangeHandler() {
 		.attr("id", function(d,i) {return "legend_color_" + i;})
 		.each(function(d,i) {
 			$("#legend_color_"+i).spectrum("set", d.color);
+			$("#legend_color_"+i).off('change.spectrum')
+				.on('change.spectrum', function(e, color) {d.color = color;});
 		})
 
 	enter = joined.enter()
@@ -195,8 +197,8 @@ function countryFilterChangeHandler() {
 			d.show = true
 			$("#legend_color_"+i).spectrum({
 				color: d.color,
-				change: function(color){d.color = color;}
 			});
+			$("#legend_color_"+i).on('change.spectrum', function(e, color) {d.color = color;});
 		})
 	
 	exit = joined.exit()
