@@ -6,57 +6,57 @@ var chart_1;
 var states_1, tipBox_1;
 var tooltip_1, tooltipLine_1;
 
-countries = [
-	{"id": "Argentina", "text": "Argentina", "color": "red"},
-	{"id": "Australia", "text": "Australia", "color": "red"},
-	{"id": "Austria", "text": "Austria", "color": "red"},
-	{"id": "Bahrain", "text": "Bahrain", "color": "red"},
-	{"id": "Belgium", "text": "Belgium", "color": "red"},
-	{"id": "Brazil", "text": "Brazil", "color": "red"},
-	{"id": "Canada", "text": "Canada", "color": "red"},
-	{"id": "China", "text": "China", "color": "red"},
-	{"id": "Croatia", "text": "Croatia", "color": "red"},
-	{"id": "Czech Republic", "text": "Czech Republic", "color": "red"},
-	{"id": "Denmark", "text": "Denmark", "color": "red"},
-	{"id": "Dominican Rep.", "text": "Dominican Rep.", "color": "red"},
-	{"id": "Egypt", "text": "Egypt", "color": "red"},
-	{"id": "Finland", "text": "Finland", "color": "red"},
-	{"id": "France", "text": "France", "color": "red"},
-	{"id": "Germany", "text": "Germany", "color": "red"},
-	{"id": "Greece", "text": "Greece", "color": "red"},
-	{"id": "Hong Kong, China", "text": "Hong Kong, China", "color": "red"},
-	{"id": "Hungary", "text": "Hungary", "color": "red"},
-	{"id": "India", "text": "India", "color": "red"},
-	{"id": "Indonesia", "text": "Indonesia", "color": "red"},
-	{"id": "Ireland", "text": "Ireland", "color": "red"},
-	{"id": "Italy", "text": "Italy", "color": "red"},
-	{"id": "Japan", "text": "Japan", "color": "red"},
-	{"id": "Jordan", "text": "Jordan", "color": "red"},
-	{"id": "Korea (Rep.)", "text": "Korea (Rep.)", "color": "red"},
-	{"id": "Macao, China", "text": "Macao, China", "color": "red"},
-	{"id": "Malaysia", "text": "Malaysia", "color": "red"},
-	{"id": "Mexico", "text": "Mexico", "color": "red"},
-	{"id": "Morocco", "text": "Morocco", "color": "red"},
-	{"id": "Netherlands", "text": "Netherlands", "color": "red"},
-	{"id": "Norway", "text": "Norway", "color": "red"},
-	{"id": "Poland", "text": "Poland", "color": "red"},
-	{"id": "Portugal", "text": "Portugal", "color": "red"},
-	{"id": "Romania", "text": "Romania", "color": "red"},
-	{"id": "Russian Federation", "text": "Russian Federation", "color": "red"},
-	{"id": "Saudi Arabia", "text": "Saudi Arabia", "color": "red"},
-	{"id": "Singapore", "text": "Singapore", "color": "red"},
-	{"id": "South Africa", "text": "South Africa", "color": "red"},
-	{"id": "Spain", "text": "Spain", "color": "red"},
-	{"id": "Sweden", "text": "Sweden", "color": "red"},
-	{"id": "Switzerland", "text": "Switzerland", "color": "red"},
-	{"id": "Thailand", "text": "Thailand", "color": "red"},
-	{"id": "Tunisia", "text": "Tunisia", "color": "red"},
-	{"id": "Turkey", "text": "Turkey", "color": "red"},
-	{"id": "United Arab Emirates", "text": "United Arab Emirates", "color": "red"},
-	{"id": "United Kingdom", "text": "United Kingdom", "color": "red"},
-	{"id": "United States", "text": "United States", "color": "red"},
-	{"id": "Viet Nam", "text": "Viet Nam", "color": "red"},
-	{"id": "Zimbabwe", "text": "Zimbabwe", "color": "red"}
+countries_filter = [
+	{"id": "Argentina", "text": "Argentina", "color": "red", "show": false},
+	{"id": "Australia", "text": "Australia", "color": "red", "show": false},
+	{"id": "Austria", "text": "Austria", "color": "red", "show": false},
+	{"id": "Bahrain", "text": "Bahrain", "color": "red", "show": false},
+	{"id": "Belgium", "text": "Belgium", "color": "red", "show": false},
+	{"id": "Brazil", "text": "Brazil", "color": "red", "show": false},
+	{"id": "Canada", "text": "Canada", "color": "red", "show": false},
+	{"id": "China", "text": "China", "color": "red", "show": false},
+	{"id": "Croatia", "text": "Croatia", "color": "red", "show": false},
+	{"id": "Czech Republic", "text": "Czech Republic", "color": "red", "show": false},
+	{"id": "Denmark", "text": "Denmark", "color": "red", "show": false},
+	{"id": "Dominican Rep.", "text": "Dominican Rep.", "color": "red", "show": false},
+	{"id": "Egypt", "text": "Egypt", "color": "red", "show": false},
+	{"id": "Finland", "text": "Finland", "color": "red", "show": false},
+	{"id": "France", "text": "France", "color": "red", "show": false},
+	{"id": "Germany", "text": "Germany", "color": "red", "show": false},
+	{"id": "Greece", "text": "Greece", "color": "red", "show": false},
+	{"id": "Hong Kong, China", "text": "Hong Kong, China", "color": "red", "show": false},
+	{"id": "Hungary", "text": "Hungary", "color": "red", "show": false},
+	{"id": "India", "text": "India", "color": "red", "show": false},
+	{"id": "Indonesia", "text": "Indonesia", "color": "red", "show": false},
+	{"id": "Ireland", "text": "Ireland", "color": "red", "show": false},
+	{"id": "Italy", "text": "Italy", "color": "red", "show": false},
+	{"id": "Japan", "text": "Japan", "color": "red", "show": false},
+	{"id": "Jordan", "text": "Jordan", "color": "red", "show": false},
+	{"id": "Korea (Rep.)", "text": "Korea (Rep.)", "color": "red", "show": false},
+	{"id": "Macao, China", "text": "Macao, China", "color": "red", "show": false},
+	{"id": "Malaysia", "text": "Malaysia", "color": "red", "show": false},
+	{"id": "Mexico", "text": "Mexico", "color": "red", "show": false},
+	{"id": "Morocco", "text": "Morocco", "color": "red", "show": false},
+	{"id": "Netherlands", "text": "Netherlands", "color": "red", "show": false},
+	{"id": "Norway", "text": "Norway", "color": "red", "show": false},
+	{"id": "Poland", "text": "Poland", "color": "red", "show": false},
+	{"id": "Portugal", "text": "Portugal", "color": "red", "show": false},
+	{"id": "Romania", "text": "Romania", "color": "red", "show": false},
+	{"id": "Russian Federation", "text": "Russian Federation", "color": "red", "show": false},
+	{"id": "Saudi Arabia", "text": "Saudi Arabia", "color": "red", "show": false},
+	{"id": "Singapore", "text": "Singapore", "color": "red", "show": false},
+	{"id": "South Africa", "text": "South Africa", "color": "red", "show": false},
+	{"id": "Spain", "text": "Spain", "color": "red", "show": false},
+	{"id": "Sweden", "text": "Sweden", "color": "red", "show": false},
+	{"id": "Switzerland", "text": "Switzerland", "color": "red", "show": false},
+	{"id": "Thailand", "text": "Thailand", "color": "red", "show": false},
+	{"id": "Tunisia", "text": "Tunisia", "color": "red", "show": false},
+	{"id": "Turkey", "text": "Turkey", "color": "red", "show": false},
+	{"id": "United Arab Emirates", "text": "United Arab Emirates", "color": "red", "show": false},
+	{"id": "United Kingdom", "text": "United Kingdom", "color": "red", "show": false},
+	{"id": "United States", "text": "United States", "color": "red", "show": false},
+	{"id": "Viet Nam", "text": "Viet Nam", "color": "red", "show": false},
+	{"id": "Zimbabwe", "text": "Zimbabwe", "color": "red", "show": false}
 ]
 
 function removeTooltip_1() {
@@ -152,7 +152,7 @@ function drawLines_1() {
 
 $(document).ready(function() {
 	$('#country-filter').select2({
-		data: countries,
+		data: countries_filter,
 		multiple: true,
 		maximumSelectionLength: 5,
 		debug: true,
@@ -170,19 +170,41 @@ $(document).ready(function() {
 function countryFilterChangeHandler() {
 	names = $('#country-filter').val();
 	names = names === null ? [] : names;
-	data = countries.filter(function(d) {return names.includes(d.id);})
+	data = countries_filter.filter(function(d) {return names.includes(d.id);})
 	
-	color = d3.select("#country-color")
-		.selectAll("p")
+	joined = d3.select("#country-color")
+		.selectAll(".legend_div")
 		.data(data)
+	joined.select("p")
 		.text(function(d,i) {return (i+1) + ". " + d.id;})
-		.style("color", function(d) {return d.color;});
+	joined.select("input")
+		.attr("id", function(d,i) {return "legend_color_" + i;})
+		.each(function(d,i) {
+			$("#legend_color_"+i).spectrum("set", d.color);
+		})
 
-	color.enter().append("p")
+	enter = joined.enter()
+		.append("div")
+		.attr("class", "legend_div")
+	enter.append("p")
 		.text(function(d,i) { return (i+1) + ". " + d.id; })
-		.style("color", function(d) {return d.color;});
-		
-	color.exit().remove();
+	enter.append("input")
+		.attr("type", "text")
+		.attr("id", function(d,i) {return "legend_color_" + i;})
+		.each(function(d,i) {
+			d.show = true
+			$("#legend_color_"+i).spectrum({
+				color: d.color,
+				change: function(color){d.color = color;}
+			});
+		})
+	
+	exit = joined.exit()
+	exit.each(function(d,i) {
+			$("#legend_color_"+i).spectrum("destroy");
+			d.show = false
+		})
+	exit.remove()
 }
 
 $('#country-filter').on('select2:select', function (e) {countryFilterChangeHandler();});
@@ -190,7 +212,7 @@ $('#country-filter').on('select2:unselect', function (e) {countryFilterChangeHan
 
 window.onresize = function(event) {
 	$('#country-filter').select2({
-		data: countries,
+		data: countries_filter,
 		multiple: true,
 		maximumSelectionLength: 5,
 		debug: true,
