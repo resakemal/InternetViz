@@ -7,56 +7,60 @@ var states_1, tipBox_1;
 var tooltip_1, tooltipLine_1;
 
 countries_filter = [
-	{"id": "Argentina", "text": "Argentina", "color": "red", "show": false},
-	{"id": "Australia", "text": "Australia", "color": "red", "show": false},
-	{"id": "Austria", "text": "Austria", "color": "red", "show": false},
-	{"id": "Bahrain", "text": "Bahrain", "color": "red", "show": false},
-	{"id": "Belgium", "text": "Belgium", "color": "red", "show": false},
-	{"id": "Brazil", "text": "Brazil", "color": "red", "show": false},
-	{"id": "Canada", "text": "Canada", "color": "red", "show": false},
-	{"id": "China", "text": "China", "color": "red", "show": false},
-	{"id": "Croatia", "text": "Croatia", "color": "red", "show": false},
-	{"id": "Czech Republic", "text": "Czech Republic", "color": "red", "show": false},
-	{"id": "Denmark", "text": "Denmark", "color": "red", "show": false},
-	{"id": "Dominican Rep.", "text": "Dominican Rep.", "color": "red", "show": false},
-	{"id": "Egypt", "text": "Egypt", "color": "red", "show": false},
-	{"id": "Finland", "text": "Finland", "color": "red", "show": false},
-	{"id": "France", "text": "France", "color": "red", "show": false},
-	{"id": "Germany", "text": "Germany", "color": "red", "show": false},
-	{"id": "Greece", "text": "Greece", "color": "red", "show": false},
-	{"id": "Hong Kong, China", "text": "Hong Kong, China", "color": "red", "show": false},
-	{"id": "Hungary", "text": "Hungary", "color": "red", "show": false},
-	{"id": "India", "text": "India", "color": "red", "show": false},
-	{"id": "Indonesia", "text": "Indonesia", "color": "red", "show": false},
-	{"id": "Ireland", "text": "Ireland", "color": "red", "show": false},
-	{"id": "Italy", "text": "Italy", "color": "red", "show": false},
-	{"id": "Japan", "text": "Japan", "color": "red", "show": false},
-	{"id": "Jordan", "text": "Jordan", "color": "red", "show": false},
-	{"id": "Korea (Rep.)", "text": "Korea (Rep.)", "color": "red", "show": false},
-	{"id": "Macao, China", "text": "Macao, China", "color": "red", "show": false},
-	{"id": "Malaysia", "text": "Malaysia", "color": "red", "show": false},
-	{"id": "Mexico", "text": "Mexico", "color": "red", "show": false},
-	{"id": "Morocco", "text": "Morocco", "color": "red", "show": false},
-	{"id": "Netherlands", "text": "Netherlands", "color": "red", "show": false},
-	{"id": "Norway", "text": "Norway", "color": "red", "show": false},
-	{"id": "Poland", "text": "Poland", "color": "red", "show": false},
-	{"id": "Portugal", "text": "Portugal", "color": "red", "show": false},
-	{"id": "Romania", "text": "Romania", "color": "red", "show": false},
-	{"id": "Russian Federation", "text": "Russian Federation", "color": "red", "show": false},
-	{"id": "Saudi Arabia", "text": "Saudi Arabia", "color": "red", "show": false},
-	{"id": "Singapore", "text": "Singapore", "color": "red", "show": false},
-	{"id": "South Africa", "text": "South Africa", "color": "red", "show": false},
-	{"id": "Spain", "text": "Spain", "color": "red", "show": false},
-	{"id": "Sweden", "text": "Sweden", "color": "red", "show": false},
-	{"id": "Switzerland", "text": "Switzerland", "color": "red", "show": false},
-	{"id": "Thailand", "text": "Thailand", "color": "red", "show": false},
-	{"id": "Tunisia", "text": "Tunisia", "color": "red", "show": false},
-	{"id": "Turkey", "text": "Turkey", "color": "red", "show": false},
-	{"id": "United Arab Emirates", "text": "United Arab Emirates", "color": "red", "show": false},
-	{"id": "United Kingdom", "text": "United Kingdom", "color": "red", "show": false},
-	{"id": "United States", "text": "United States", "color": "red", "show": false},
-	{"id": "Viet Nam", "text": "Viet Nam", "color": "red", "show": false},
-	{"id": "Zimbabwe", "text": "Zimbabwe", "color": "red", "show": false}
+	{"id": "Argentina", "text": "Argentina"}, {"id": "Australia", "text": "Australia"}, {"id": "Austria", "text": "Austria"}, {"id": "Bahrain", "text": "Bahrain"}, {"id": "Belgium", "text": "Belgium"}, {"id": "Brazil", "text": "Brazil"}, {"id": "Canada", "text": "Canada"}, {"id": "China", "text": "China"}, {"id": "Croatia", "text": "Croatia"}, {"id": "Czech Republic", "text": "Czech Republic"}, {"id": "Denmark", "text": "Denmark"}, {"id": "Dominican Rep.", "text": "Dominican Rep."}, {"id": "Egypt", "text": "Egypt"}, {"id": "Finland", "text": "Finland"}, {"id": "France", "text": "France"}, {"id": "Germany", "text": "Germany"}, {"id": "Greece", "text": "Greece"}, {"id": "Hong Kong, China", "text": "Hong Kong, China"}, {"id": "Hungary", "text": "Hungary"}, {"id": "India", "text": "India"}, {"id": "Indonesia", "text": "Indonesia"}, {"id": "Ireland", "text": "Ireland"}, {"id": "Italy", "text": "Italy"}, {"id": "Japan", "text": "Japan"}, {"id": "Jordan", "text": "Jordan"}, {"id": "Korea (Rep.)", "text": "Korea (Rep.)"}, {"id": "Macao, China", "text": "Macao, China"}, {"id": "Malaysia", "text": "Malaysia"}, {"id": "Mexico", "text": "Mexico"}, {"id": "Morocco", "text": "Morocco"}, {"id": "Netherlands", "text": "Netherlands"}, {"id": "Norway", "text": "Norway"}, {"id": "Poland", "text": "Poland"}, {"id": "Portugal", "text": "Portugal"}, {"id": "Romania", "text": "Romania"}, {"id": "Russian Federation", "text": "Russian Federation"}, {"id": "Saudi Arabia", "text": "Saudi Arabia"}, {"id": "Singapore", "text": "Singapore"}, {"id": "South Africa", "text": "South Africa"}, {"id": "Spain", "text": "Spain"}, {"id": "Sweden", "text": "Sweden"}, {"id": "Switzerland", "text": "Switzerland"}, {"id": "Thailand", "text": "Thailand"}, {"id": "Tunisia", "text": "Tunisia"}, {"id": "Turkey", "text": "Turkey"}, {"id": "United Arab Emirates", "text": "United Arab Emirates"}, {"id": "United Kingdom", "text": "United Kingdom"}, {"id": "United States", "text": "United States"}, {"id": "Viet Nam", "text": "Viet Nam"}, {"id": "Zimbabwe", "text": "Zimbabwe"}
+]
+
+countries = [
+	{"id": "Argentina", "color": "red", "show": false},
+	{"id": "Australia", "color": "red", "show": false},
+	{"id": "Austria", "color": "red", "show": false},
+	{"id": "Bahrain", "color": "red", "show": false},
+	{"id": "Belgium", "color": "red", "show": false},
+	{"id": "Brazil", "color": "red", "show": false},
+	{"id": "Canada", "color": "red", "show": false},
+	{"id": "China", "color": "red", "show": false},
+	{"id": "Croatia", "color": "red", "show": false},
+	{"id": "Czech Republic", "color": "red", "show": false},
+	{"id": "Denmark", "color": "red", "show": false},
+	{"id": "Dominican Rep.", "color": "red", "show": false},
+	{"id": "Egypt", "color": "red", "show": false},
+	{"id": "Finland", "color": "red", "show": false},
+	{"id": "France", "color": "red", "show": false},
+	{"id": "Germany", "color": "red", "show": false},
+	{"id": "Greece", "color": "red", "show": false},
+	{"id": "Hong Kong, China", "color": "red", "show": false},
+	{"id": "Hungary", "color": "red", "show": false},
+	{"id": "India", "color": "red", "show": false},
+	{"id": "Indonesia", "color": "red", "show": false},
+	{"id": "Ireland", "color": "red", "show": false},
+	{"id": "Italy", "color": "red", "show": false},
+	{"id": "Japan", "color": "red", "show": false},
+	{"id": "Jordan", "color": "red", "show": false},
+	{"id": "Korea (Rep.)", "color": "red", "show": false},
+	{"id": "Macao, China", "color": "red", "show": false},
+	{"id": "Malaysia", "color": "red", "show": false},
+	{"id": "Mexico", "color": "red", "show": false},
+	{"id": "Morocco", "color": "red", "show": false},
+	{"id": "Netherlands", "color": "red", "show": false},
+	{"id": "Norway", "color": "red", "show": false},
+	{"id": "Poland", "color": "red", "show": false},
+	{"id": "Portugal", "color": "red", "show": false},
+	{"id": "Romania", "color": "red", "show": false},
+	{"id": "Russian Federation", "color": "red", "show": false},
+	{"id": "Saudi Arabia", "color": "red", "show": false},
+	{"id": "Singapore", "color": "red", "show": false},
+	{"id": "South Africa", "color": "red", "show": false},
+	{"id": "Spain", "color": "red", "show": false},
+	{"id": "Sweden", "color": "red", "show": false},
+	{"id": "Switzerland", "color": "red", "show": false},
+	{"id": "Thailand", "color": "red", "show": false},
+	{"id": "Tunisia", "color": "red", "show": false},
+	{"id": "Turkey", "color": "red", "show": false},
+	{"id": "United Arab Emirates", "color": "red", "show": false},
+	{"id": "United Kingdom", "color": "red", "show": false},
+	{"id": "United States", "color": "red", "show": false},
+	{"id": "Viet Nam", "color": "red", "show": false},
+	{"id": "Zimbabwe", "color": "red", "show": false}
 ]
 
 function removeTooltip_1() {
@@ -161,6 +165,28 @@ $(document).ready(function() {
 		allowClear: true,
 	});
 	
+	$( "#year-range-filter" ).slider({
+		range: true,
+		min: 2000,
+		max: 2016,
+		step: 1,
+		values: [ 2000, 2016 ],
+		slide: function( event, ui ) {
+			$( "#year-range-label" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+		}
+    })
+	.each(function() {
+		var vals = 2016 - 2000;
+		for (var i = 0; i <= vals; i+=2) {
+			year = i < 10 ? "'0" + i : "'" + i
+			var el = $('<label>' + year + '</label>').css('left', (i/vals*100) + '%');
+			$("#year-range-filter").append(el);
+		}
+	})
+    $( "#year-range-label" ).val( 
+		$("#year-range-filter").slider("values", 0) +" - "+ $("#year-range-filter").slider("values", 1) 
+	);
+	
 	initRange();
 	tooltip_1 = d3.select('#tooltip_1');
 	
@@ -170,7 +196,7 @@ $(document).ready(function() {
 function countryFilterChangeHandler() {
 	names = $('#country-filter').val();
 	names = names === null ? [] : names;
-	data = countries_filter.filter(function(d) {return names.includes(d.id);})
+	data = countries.filter(function(d) {return names.includes(d.id);})
 	
 	joined = d3.select("#country-color")
 		.selectAll(".legend_div")
@@ -197,6 +223,20 @@ function countryFilterChangeHandler() {
 			d.show = true
 			$("#legend_color_"+i).spectrum({
 				color: d.color,
+				showPaletteOnly: true,
+				togglePaletteOnly: true,
+				togglePaletteMoreText: 'more',
+				togglePaletteLessText: 'less',
+				palette: [
+					["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
+					["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
+					["#f4cccc","#fce5cd","#fff2cc","#d9ead3","#d0e0e3","#cfe2f3","#d9d2e9","#ead1dc"],
+					["#ea9999","#f9cb9c","#ffe599","#b6d7a8","#a2c4c9","#9fc5e8","#b4a7d6","#d5a6bd"],
+					["#e06666","#f6b26b","#ffd966","#93c47d","#76a5af","#6fa8dc","#8e7cc3","#c27ba0"],
+					["#c00","#e69138","#f1c232","#6aa84f","#45818e","#3d85c6","#674ea7","#a64d79"],
+					["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47"],
+					["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
+				]
 			});
 			$("#legend_color_"+i).on('change.spectrum', function(e, color) {d.color = color;});
 		})

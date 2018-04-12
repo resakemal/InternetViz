@@ -41,3 +41,11 @@
 
 .legend_div {
 }
+
+#year-range-filter label {
+  position: absolute;
+  width: 20px;
+  margin-top: 20px;
+  margin-left: -10px;
+  text-align: center;
+}
