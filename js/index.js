@@ -60,8 +60,45 @@ countries = [
 	{"id": "United Kingdom", "color": "red", "show": false},
 	{"id": "United States", "color": "red", "show": false},
 	{"id": "Viet Nam", "color": "red", "show": false},
-	{"id": "Zimbabwe", "color": "red", "show": false}
+	{"id": "Zimbabwe", "color": "red", "show": false},
+	{"id": "Average", "color": "red", "show": false}
 ]
+
+function load_data() {
+	$.getJSON("data/telephone.json", function(json) {
+	    for (i = 0; i < countries.length; i++) {
+		    countries[i].data_telp = json[countries[i].id];
+		}
+
+	});
+	$.getJSON("data/mobile.json", function(json) {
+	    for (i = 0; i < countries.length; i++) {
+		    countries[i].data_mobile = json[countries[i].id];
+		}
+	});
+
+	$.getJSON("data/broadband.json", function(json) {
+	    for (i = 0; i < countries.length; i++) {
+		    countries[i].data_broad = json[countries[i].id];
+		}
+	});
+
+	$.getJSON("data/internet_user.json", function(json) {
+	    for (i = 0; i < countries.length; i++) {
+		    countries[i].data_internet = json[countries[i].id];
+		}
+	});
+}
+
+function initRange() {
+	// Define margins, dimensions, and some line colors
+	width = $("#chart_1").width() - margin.left - margin.right;
+	height = $("#chart_1").height() - margin.top - margin.bottom;
+
+	// Define the scales and tell D3 how to draw the line
+	x = d3.scaleLinear().domain([2000, 2016]).range([0, width]);     
+	y = d3.scaleLinear().domain([0, 200]).range([height, 0]);
+}
 
 function removeTooltip_1() {
   if (tooltip_1) tooltip_1.style('display', 'none');
@@ -90,16 +127,6 @@ function drawTooltip_1() {
     .append('div')
     .style('color', d => d.color)
     .html(d => d.name + ': ' + d.history.find(h => h.year == year).population);
-}
-
-function initRange() {
-	// Define margins, dimensions, and some line colors
-	width = $("#chart_1").width() - margin.left - margin.right;
-	height = $("#chart_1").height() - margin.top - margin.bottom;
-
-	// Define the scales and tell D3 how to draw the line
-	x = d3.scaleLinear().domain([1910, 2010]).range([0, width]);     
-	y = d3.scaleLinear().domain([0, 40000000]).range([height, 0]);
 }
 
 function drawGraph_1() {
@@ -153,45 +180,6 @@ function drawLines_1() {
 			.on('mouseout', removeTooltip_1);
 	})
 }
-
-$(document).ready(function() {
-	$('#country-filter').select2({
-		data: countries_filter,
-		multiple: true,
-		maximumSelectionLength: 5,
-		debug: true,
-		dropdownAutoWidth: true,
-		placeholder: "Select up to 5 country to display",
-		allowClear: true,
-	});
-	
-	$( "#year-range-filter" ).slider({
-		range: true,
-		min: 2000,
-		max: 2016,
-		step: 1,
-		values: [ 2000, 2016 ],
-		slide: function( event, ui ) {
-			$( "#year-range-label" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-		}
-    })
-	.each(function() {
-		var vals = 2016 - 2000;
-		for (var i = 0; i <= vals; i+=2) {
-			year = i < 10 ? "'0" + i : "'" + i
-			var el = $('<label>' + year + '</label>').css('left', (i/vals*100) + '%');
-			$("#year-range-filter").append(el);
-		}
-	})
-    $( "#year-range-label" ).val( 
-		$("#year-range-filter").slider("values", 0) +" - "+ $("#year-range-filter").slider("values", 1) 
-	);
-	
-	initRange();
-	tooltip_1 = d3.select('#tooltip_1');
-	
-	drawGraph_1();
-});
 
 function countryFilterChangeHandler() {
 	names = $('#country-filter').val();
@@ -249,8 +237,53 @@ function countryFilterChangeHandler() {
 	exit.remove()
 }
 
-$('#country-filter').on('select2:select', function (e) {countryFilterChangeHandler();});
-$('#country-filter').on('select2:unselect', function (e) {countryFilterChangeHandler();});
+function yearFilterChangeHandler(event, ui) {
+	$( "#year-range-label" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+}
+
+$(document).ready(function() {
+
+	load_data();
+	console.log(countries);
+
+	$('#country-filter').select2({
+		data: countries_filter,
+		multiple: true,
+		maximumSelectionLength: 5,
+		debug: true,
+		dropdownAutoWidth: true,
+		placeholder: "Select up to 5 country to display",
+		allowClear: true,
+	});
+	
+	$('#country-filter').on('select2:select', function (e) {countryFilterChangeHandler();});
+	$('#country-filter').on('select2:unselect', function (e) {countryFilterChangeHandler();});
+
+	$( "#year-range-filter" ).slider({
+		range: true,
+		min: 2000,
+		max: 2016,
+		step: 1,
+		values: [ 2000, 2016 ],
+		slide: function( event, ui ) {yearFilterChangeHandler(event, ui);}
+    })
+	.each(function() {
+		var vals = 2016 - 2000;
+		for (var i = 0; i <= vals; i+=2) {
+			year = i < 10 ? "'0" + i : "'" + i
+			var el = $('<label>' + year + '</label>').css('left', (i/vals*100) + '%');
+			$("#year-range-filter").append(el);
+		}
+	})
+    $( "#year-range-label" ).val( 
+		$("#year-range-filter").slider("values", 0) +" - "+ $("#year-range-filter").slider("values", 1) 
+	);
+	
+	initRange();
+	tooltip_1 = d3.select('#tooltip_1');
+	
+	drawGraph_1();
+});
 
 window.onresize = function(event) {
 	$('#country-filter').select2({
