@@ -1,16 +1,21 @@
 const margin = {top: 40, right: 40, bottom: 30, left: 40};
-const line = d3.line().x(d => x(d.year)).y(d => y(d.population));
+// const line = d3.line().x(d => x(d.year)).y(d => y(d.population));
+const line = d3.line().x(d => x(d.year)).y(d => y(d.val));
+
+const LINE_STROKE = 1
 
 var height, width, x, y;
 var chart_1;
 var states_1, tipBox_1;
 var tooltip_1, tooltipLine_1;
+var yearStart = 2000;
+var yearEnd = 2016;
 
-countries_filter = [
+var countries_filter = [
 	{"id": "Argentina", "text": "Argentina"}, {"id": "Australia", "text": "Australia"}, {"id": "Austria", "text": "Austria"}, {"id": "Bahrain", "text": "Bahrain"}, {"id": "Belgium", "text": "Belgium"}, {"id": "Brazil", "text": "Brazil"}, {"id": "Canada", "text": "Canada"}, {"id": "China", "text": "China"}, {"id": "Croatia", "text": "Croatia"}, {"id": "Czech Republic", "text": "Czech Republic"}, {"id": "Denmark", "text": "Denmark"}, {"id": "Dominican Rep.", "text": "Dominican Rep."}, {"id": "Egypt", "text": "Egypt"}, {"id": "Finland", "text": "Finland"}, {"id": "France", "text": "France"}, {"id": "Germany", "text": "Germany"}, {"id": "Greece", "text": "Greece"}, {"id": "Hong Kong, China", "text": "Hong Kong, China"}, {"id": "Hungary", "text": "Hungary"}, {"id": "India", "text": "India"}, {"id": "Indonesia", "text": "Indonesia"}, {"id": "Ireland", "text": "Ireland"}, {"id": "Italy", "text": "Italy"}, {"id": "Japan", "text": "Japan"}, {"id": "Jordan", "text": "Jordan"}, {"id": "Korea (Rep.)", "text": "Korea (Rep.)"}, {"id": "Macao, China", "text": "Macao, China"}, {"id": "Malaysia", "text": "Malaysia"}, {"id": "Mexico", "text": "Mexico"}, {"id": "Morocco", "text": "Morocco"}, {"id": "Netherlands", "text": "Netherlands"}, {"id": "Norway", "text": "Norway"}, {"id": "Poland", "text": "Poland"}, {"id": "Portugal", "text": "Portugal"}, {"id": "Romania", "text": "Romania"}, {"id": "Russian Federation", "text": "Russian Federation"}, {"id": "Saudi Arabia", "text": "Saudi Arabia"}, {"id": "Singapore", "text": "Singapore"}, {"id": "South Africa", "text": "South Africa"}, {"id": "Spain", "text": "Spain"}, {"id": "Sweden", "text": "Sweden"}, {"id": "Switzerland", "text": "Switzerland"}, {"id": "Thailand", "text": "Thailand"}, {"id": "Tunisia", "text": "Tunisia"}, {"id": "Turkey", "text": "Turkey"}, {"id": "United Arab Emirates", "text": "United Arab Emirates"}, {"id": "United Kingdom", "text": "United Kingdom"}, {"id": "United States", "text": "United States"}, {"id": "Viet Nam", "text": "Viet Nam"}, {"id": "Zimbabwe", "text": "Zimbabwe"}
 ]
 
-countries = [
+var countries = [
 	{"id": "Argentina", "color": "red", "show": false},
 	{"id": "Australia", "color": "red", "show": false},
 	{"id": "Austria", "color": "red", "show": false},
@@ -61,31 +66,71 @@ countries = [
 	{"id": "United States", "color": "red", "show": false},
 	{"id": "Viet Nam", "color": "red", "show": false},
 	{"id": "Zimbabwe", "color": "red", "show": false},
-	{"id": "Average", "color": "red", "show": false}
-]
+	{"id": "Average", "color": "red", "show": true}
+];
 
 function load_data() {
+	$.ajaxSetup({
+	    async: false
+	});
+
 	$.getJSON("data/telephone.json", function(json) {
 	    for (i = 0; i < countries.length; i++) {
-		    countries[i].data_telp = json[countries[i].id];
-		}
+	    	per_country = json[countries[i].id];
+	    	data_array = [];
+	    	for (var y in per_country) {
+	    		entry = {};
+	    		entry.year = parseInt(y);
+	    		entry.val = per_country[y];
+	    		if (entry.val != "")
+	    			data_array.push(entry);
+	    	}
+		    countries[i].data_telp = data_array;		   
+ 		}
 
 	});
 	$.getJSON("data/mobile.json", function(json) {
 	    for (i = 0; i < countries.length; i++) {
-		    countries[i].data_mobile = json[countries[i].id];
+	    	per_country = json[countries[i].id];
+	    	data_array = [];
+	    	for (var y in per_country) {
+	    		entry = {};
+	    		entry.year = parseInt(y);
+	    		entry.val = per_country[y];
+	    		if (entry.val != "")
+	    			data_array.push(entry);
+	    	}
+		    countries[i].data_mobile = data_array;
 		}
 	});
 
 	$.getJSON("data/broadband.json", function(json) {
 	    for (i = 0; i < countries.length; i++) {
-		    countries[i].data_broad = json[countries[i].id];
+	    	per_country = json[countries[i].id];
+	    	data_array = [];
+	    	for (var y in per_country) {
+	    		entry = {};
+	    		entry.year = parseInt(y);
+	    		entry.val = per_country[y];
+	    		if (entry.val != "")
+	    			data_array.push(entry);
+	    	}
+		    countries[i].data_broad = data_array;
 		}
 	});
 
 	$.getJSON("data/internet_user.json", function(json) {
 	    for (i = 0; i < countries.length; i++) {
-		    countries[i].data_internet = json[countries[i].id];
+	    	per_country = json[countries[i].id];
+	    	data_array = [];
+	    	for (var y in per_country) {
+	    		entry = {};
+	    		entry.year = parseInt(y);
+	    		entry.val = per_country[y];
+	    		if (entry.val != "")
+	    			data_array.push(entry);
+	    	}
+		    countries[i].data_internet = data_array;
 		}
 	});
 }
@@ -96,8 +141,11 @@ function initRange() {
 	height = $("#chart_1").height() - margin.top - margin.bottom;
 
 	// Define the scales and tell D3 how to draw the line
-	x = d3.scaleLinear().domain([2000, 2016]).range([0, width]);     
-	y = d3.scaleLinear().domain([0, 200]).range([height, 0]);
+	x = d3.scaleLinear().domain([yearStart, yearEnd]).range([0, width]);     
+	y = d3.scaleLinear().domain([0, 100]).range([height, 0]);
+
+	// x = d3.scaleLinear().domain([1910, 2010]).range([0, width]);     
+	// y = d3.scaleLinear().domain([0, 40000000]).range([height, 0]);
 }
 
 function removeTooltip_1() {
@@ -106,10 +154,20 @@ function removeTooltip_1() {
 }
 
 function drawTooltip_1() {
-  const year = Math.floor((x.invert(d3.mouse(tipBox_1.node())[0]) + 5) / 10) * 10;
+  const year = Math.round((x.invert(d3.mouse(tipBox_1.node())[0])));
   
   states_1.sort((a, b) => {
-    return b.history.find(h => h.year == year).population - a.history.find(h => h.year == year).population;
+  	if(b.data_broad.find(h => h.year == year) == undefined)
+  		b_val = -1;
+  	else 
+  		b_val = b.data_broad.find(h => h.year == year).val;
+
+  	if(a.data_broad.find(h => h.year == year) == undefined)
+  		a_val = -1;
+  	else 
+  		a_val = a.data_broad.find(h => h.year == year).val;
+    
+    return b_val - a_val;
   })  
   
   tooltipLine_1.attr('stroke', 'black')
@@ -126,7 +184,13 @@ function drawTooltip_1() {
     .data(states_1).enter()
     .append('div')
     .style('color', d => d.color)
-    .html(d => d.name + ': ' + d.history.find(h => h.year == year).population);
+    .html(d =>{
+    	if (d.data_broad.find(h => h.year == year) == undefined)
+    		d_val = "NaN"
+    	else
+    		d_val = d.data_broad.find(h => h.year == year).val
+    	return d.id + ': ' + d_val;
+    });
 }
 
 function drawGraph_1() {
@@ -137,48 +201,58 @@ function drawGraph_1() {
 	tooltipLine_1 = chart_1.append('line');
 	
 	// Add the axes and a title
-	const xAxis = d3.axisBottom(x).tickFormat(d3.format('.4'));
+	const xAxis = d3.axisBottom(x).tickFormat(d3.format('.4')).ticks(Math.ceil((yearEnd-yearStart)/2));
 	const yAxis = d3.axisLeft(y).tickFormat(d3.format('.2s'));
 	chart_1.append('g').call(yAxis); 
 	chart_1.append('g').attr('transform', 'translate(0,' + height + ')').call(xAxis);
-	chart_1.append('text').html('State Population Over Time').attr('x', $("#chart_1").width()/3);
-	
+	// chart_1.append('text').html('Broadband Subscription').attr('x', $("#chart_1").width()/3);
+	chart_1 = chart_1.append('g');
 	drawLines_1();
 }
 
 function drawLines_1() {
-	// Load the data and draw a chart_1
-	d3.json('data/state-populations.json', d => {
-	  	states_1 = d;
+	states_1 = countries.filter(function(d){return d.show;});
 
-	  	paths = chart_1.append("g").selectAll("path")
-			.data(states_1.filter(function(d){return d.show;}))
+	paths = chart_1.selectAll("path")
+		.data(states_1);
 
-		// Update Existing
-		paths.attr('fill', 'none')
-			.attr('stroke', d => d.color)
-			.attr('stroke-width', 2)
-			.datum(d => d.history)
-			.attr('d', line);
+	// Update Existing
+	paths.attr('fill', 'none')
+		.attr('stroke', d => d.color)
+		.attr('stroke-width', LINE_STROKE)
+		.datum(d => d.data_broad.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
+		.attr('d', line);
 
-		// Add new
-		paths.enter().append("path")
-			.attr('fill', 'none')
-			.attr('stroke', d => d.color)
-			.attr('stroke-width', 2)
-			.datum(d => d.history)
-			.attr('d', line);
-		
-		// Remove excess
-		paths.exit().remove();
+	// Add new
+	paths.enter().append("path")
+		.attr('fill', 'none')
+		.attr('stroke', d => d.color)
+		.attr('stroke-width', LINE_STROKE)
+		.datum(d => d.data_broad.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
+		.attr('d', line);
+	
+	// Remove excess
+	paths.exit().remove();
 
-	  	tipBox_1 = chart_1.append('rect')
-			.attr('width', width)
-			.attr('height', height)
-			.attr('opacity', 0)
-			.on('mousemove', drawTooltip_1)
-			.on('mouseout', removeTooltip_1);
-	})
+  	tipBox_1 = chart_1.append('rect')
+		.attr('width', width)
+		.attr('height', height)
+		.attr('opacity', 0)
+		.on('mousemove', drawTooltip_1)
+		.on('mouseout', removeTooltip_1);
+}
+
+function updateColor() {
+	drawLines_1();
+}
+
+function updateRange() {
+	initRange()
+	drawGraph_1();
+}
+
+function updateCountry() {
+	drawLines_1();
 }
 
 function countryFilterChangeHandler() {
@@ -194,9 +268,13 @@ function countryFilterChangeHandler() {
 	joined.select("input")
 		.attr("id", function(d,i) {return "legend_color_" + i;})
 		.each(function(d,i) {
+			d.show = true;
 			$("#legend_color_"+i).spectrum("set", d.color);
 			$("#legend_color_"+i).off('change.spectrum')
-				.on('change.spectrum', function(e, color) {d.color = color;});
+				.on('change.spectrum', function(e, color) {
+					d.color = color;
+					updateColor();
+				});
 		})
 
 	enter = joined.enter()
@@ -226,7 +304,10 @@ function countryFilterChangeHandler() {
 					["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
 				]
 			});
-			$("#legend_color_"+i).on('change.spectrum', function(e, color) {d.color = color;});
+			$("#legend_color_"+i).on('change.spectrum', function(e, color) {
+				d.color = color;
+				updateColor();
+			});
 		})
 	
 	exit = joined.exit()
@@ -235,16 +316,19 @@ function countryFilterChangeHandler() {
 			d.show = false
 		})
 	exit.remove()
+	console.log(countries)
+	updateCountry();
 }
 
 function yearFilterChangeHandler(event, ui) {
 	$( "#year-range-label" ).val( ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+	yearStart = ui.values[0];
+	yearEnd = ui.values[1];
+	updateRange();
 }
 
 $(document).ready(function() {
-
 	load_data();
-	console.log(countries);
 
 	$('#country-filter').select2({
 		data: countries_filter,
