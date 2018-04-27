@@ -2,7 +2,17 @@ const margin = {top: 40, right: 40, bottom: 30, left: 40};
 const line = d3.line().x(d => x(d.year)).y(d => y(d.val));
 
 const LINE_STROKE = 1
-
+const colorPalette = [
+	["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
+	["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
+	["#f4cccc","#fce5cd","#fff2cc","#d9ead3","#d0e0e3","#cfe2f3","#d9d2e9","#ead1dc"],
+	["#ea9999","#f9cb9c","#ffe599","#b6d7a8","#a2c4c9","#9fc5e8","#b4a7d6","#d5a6bd"],
+	["#e06666","#f6b26b","#ffd966","#93c47d","#76a5af","#6fa8dc","#8e7cc3","#c27ba0"],
+	["#c00","#e69138","#f1c232","#6aa84f","#45818e","#3d85c6","#674ea7","#a64d79"],
+	["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47"],
+	["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
+]
+				
 var height, width, x, y;
 var chart_1;
 var states_1, tipBox_1;
@@ -332,10 +342,13 @@ function countryFilterChangeHandler() {
 		.each(function(d,i) {
 			d.show = true;
 			$("#legend_color_"+i).spectrum("set", d.color);
-			$("#legend_color_"+i).off('change.spectrum')
-				.on('change.spectrum', function(e, color) {
-					d.color = color;
-					updateColor();
+			$("#legend_color_"+i)
+				.off('change.spectrum move.spectrum')
+				.on('change.spectrum move.spectrum', function(e, color) {
+					if (d.color != color) {
+						d.color = color;
+						updateColor();
+					}
 				});
 		})
 
@@ -355,20 +368,13 @@ function countryFilterChangeHandler() {
 				togglePaletteOnly: true,
 				togglePaletteMoreText: 'more',
 				togglePaletteLessText: 'less',
-				palette: [
-					["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
-					["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
-					["#f4cccc","#fce5cd","#fff2cc","#d9ead3","#d0e0e3","#cfe2f3","#d9d2e9","#ead1dc"],
-					["#ea9999","#f9cb9c","#ffe599","#b6d7a8","#a2c4c9","#9fc5e8","#b4a7d6","#d5a6bd"],
-					["#e06666","#f6b26b","#ffd966","#93c47d","#76a5af","#6fa8dc","#8e7cc3","#c27ba0"],
-					["#c00","#e69138","#f1c232","#6aa84f","#45818e","#3d85c6","#674ea7","#a64d79"],
-					["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47"],
-					["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
-				]
+				palette: colorPalette
 			});
-			$("#legend_color_"+i).on('change.spectrum', function(e, color) {
-				d.color = color;
-				updateColor();
+			$("#legend_color_"+i).on('change.spectrum move.spectrum', function(e, color) {
+				if (d.color != color) {
+					d.color = color;
+					updateColor();
+				}
 			});
 		})
 	
@@ -389,10 +395,7 @@ function yearFilterChangeHandler(event, ui) {
 	updateRange();
 }
 
-
-$(document).ready(function() {
-	load_data();
-
+function initFilter() {
 	$('#country-filter').select2({
 		data: countries_filter,
 		multiple: true,
@@ -412,7 +415,13 @@ $(document).ready(function() {
 		max: 2016,
 		step: 1,
 		values: [ 2000, 2016 ],
-		slide: function( event, ui ) {yearFilterChangeHandler(event, ui);}
+		slide: function( event, ui ) {
+			if(ui.values[1] - ui.values[0] < 6){
+                return false;
+            } else {
+                yearFilterChangeHandler(event, ui); 
+            }  
+		}
     })
 	.each(function() {
 		var vals = 2016 - 2000;
@@ -426,9 +435,15 @@ $(document).ready(function() {
 		$("#year-range-filter").slider("values", 0) +" - "+ $("#year-range-filter").slider("values", 1) 
 	);
 	
-	initRange();
-	tooltip_1 = d3.select('#tooltip_1');
+}
 
+
+$(document).ready(function() {
+	load_data();
+	initFilter();
+	initRange();
+	
+	tooltip_1 = d3.select('#tooltip_1');
 	drawGraph_1();
 	
 	countryFilterChangeHandler();
@@ -443,6 +458,8 @@ window.onresize = function(event) {
 		placeholder: "Select up to 5 country to display",
 		allowClear: true,
 	});
+	
 	initRange();
+	
     drawGraph_1();
 };
