@@ -1,5 +1,8 @@
 const margin = {top: 40, right: 40, bottom: 30, left: 40};
-const line = d3.line().x(d => x(d.year)).y(d => y(d.val));
+const line_1 = d3.line().x(d => x(d.year)).y(d => y_1(d.val));
+const line_2 = d3.line().x(d => x(d.year)).y(d => y_2(d.val));
+const line_3 = d3.line().x(d => x(d.year)).y(d => y_3(d.val));
+const line_4 = d3.line().x(d => x(d.year)).y(d => y_4(d.val));
 
 const LINE_STROKE = 1
 const colorPalette = [
@@ -13,8 +16,8 @@ const colorPalette = [
 	["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
 ]
 				
-var height, width, x, y;
-var xAxis, yAxis;
+var height, width, x, y_1, y_2, y_3, y_4;
+var xAxis, yAxis_1, yAxis_2, yAxis_3, yAxis_4;
 var chart_1, chart_2, chart_3, chart_4;
 var states, tipBox_1, tipBox_2, tipBox_3, tipBox_4;
 var tooltip, tooltipLine_1, tooltipLine_2, tooltipLine_3, tooltipLine_4;
@@ -215,14 +218,17 @@ function initRange() {
 
 	// Define the scales and tell D3 how to draw the line
 	x = d3.scaleLinear().domain([yearStart, yearEnd]).range([0, width]);     
-	y = d3.scaleLinear().domain([0, 200]).range([height, 0]);
-
-	// x = d3.scaleLinear().domain([1910, 2010]).range([0, width]);     
-	// y = d3.scaleLinear().domain([0, 40000000]).range([height, 0]);
+	y_1 = d3.scaleLinear().domain([0, 100]).range([height, 0]);
+	y_2 = d3.scaleLinear().domain([0, 40]).range([height, 0]);
+	y_3 = d3.scaleLinear().domain([0, 200]).range([height, 0]);
+	y_4 = d3.scaleLinear().domain([0, 100]).range([height, 0]);
 
 	// Define x and y axis for charts
 	xAxis = d3.axisBottom(x).tickFormat(d3.format('.4')).ticks(Math.ceil((yearEnd-yearStart)/2));
-	yAxis = d3.axisLeft(y).tickFormat(d3.format('.2s'));
+	yAxis_1 = d3.axisLeft(y_1).tickFormat(d3.format('.2s')).ticks(5);
+	yAxis_2 = d3.axisLeft(y_2).tickFormat(d3.format('.2s')).ticks(2);
+	yAxis_3 = d3.axisLeft(y_3).tickFormat(d3.format('.2s')).ticks(10);
+	yAxis_4 = d3.axisLeft(y_4).tickFormat(d3.format('.2s')).ticks(5);
 }
 
 
@@ -299,7 +305,7 @@ function drawGraph() {
 	tooltipLine_1 = chart_1.append('line');
 	
 	// Add the axes and a title
-	chart_1.append('g').call(yAxis); 
+	chart_1.append('g').call(yAxis_1); 
 	chart_1.append('g').attr('transform', 'translate(0,' + height + ')').call(xAxis);
 	// chart_1.append('text').html('Broadband Subscription').attr('x', $("#chart_1").width()/3);
 	chart_1 = chart_1.append('g');
@@ -311,7 +317,7 @@ function drawGraph() {
 	tooltipLine_2 = chart_2.append('line');
 	
 	// Add the axes and a title
-	chart_2.append('g').call(yAxis); 
+	chart_2.append('g').call(yAxis_2); 
 	chart_2.append('g').attr('transform', 'translate(0,' + height + ')').call(xAxis);
 	// chart_1.append('text').html('Broadband Subscription').attr('x', $("#chart_1").width()/3);
 	chart_2 = chart_2.append('g');
@@ -323,7 +329,7 @@ function drawGraph() {
 	tooltipLine_3 = chart_3.append('line');
 	
 	// Add the axes and a title
-	chart_3.append('g').call(yAxis); 
+	chart_3.append('g').call(yAxis_3); 
 	chart_3.append('g').attr('transform', 'translate(0,' + height + ')').call(xAxis);
 	// chart_1.append('text').html('Broadband Subscription').attr('x', $("#chart_1").width()/3);
 	chart_3 = chart_3.append('g');
@@ -335,7 +341,7 @@ function drawGraph() {
 	tooltipLine_4 = chart_4.append('line');
 	
 	// Add the axes and a title
-	chart_4.append('g').call(yAxis); 
+	chart_4.append('g').call(yAxis_4); 
 	chart_4.append('g').attr('transform', 'translate(0,' + height + ')').call(xAxis);
 	// chart_1.append('text').html('Broadband Subscription').attr('x', $("#chart_1").width()/3);
 	chart_4 = chart_4.append('g');
@@ -354,7 +360,7 @@ function drawLines() {
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
 		.datum(d => d.data_telp.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
-		.attr('d', line);
+		.attr('d', line_1);
 
 	// Add new
 	paths.enter().append("path")
@@ -362,7 +368,7 @@ function drawLines() {
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
 		.datum(d => d.data_telp.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
-		.attr('d', line);
+		.attr('d', line_1);
 	
 	// Remove excess
 	paths.exit().remove();
@@ -382,7 +388,7 @@ function drawLines() {
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
 		.datum(d => d.data_broad.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
-		.attr('d', line);
+		.attr('d', line_2);
 
 	// Add new
 	paths.enter().append("path")
@@ -390,7 +396,7 @@ function drawLines() {
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
 		.datum(d => d.data_broad.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
-		.attr('d', line);
+		.attr('d', line_2);
 	
 	// Remove excess
 	paths.exit().remove();
@@ -410,7 +416,7 @@ function drawLines() {
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
 		.datum(d => d.data_mobile.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
-		.attr('d', line);
+		.attr('d', line_3);
 
 	// Add new
 	paths.enter().append("path")
@@ -418,7 +424,7 @@ function drawLines() {
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
 		.datum(d => d.data_mobile.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
-		.attr('d', line);
+		.attr('d', line_3);
 	
 	// Remove excess
 	paths.exit().remove();
@@ -438,7 +444,7 @@ function drawLines() {
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
 		.datum(d => d.data_internet.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
-		.attr('d', line);
+		.attr('d', line_4);
 
 	// Add new
 	paths.enter().append("path")
@@ -446,7 +452,7 @@ function drawLines() {
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
 		.datum(d => d.data_internet.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
-		.attr('d', line);
+		.attr('d', line_4);
 	
 	// Remove excess
 	paths.exit().remove();
