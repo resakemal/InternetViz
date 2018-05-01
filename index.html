@@ -5,35 +5,42 @@
 
 <div>
   <div class="navbar_container">NAVBAR</div>
+
   <div class="content_container">
-	  <div class="charts_container">
-		  <div class="chart_container">
+
+  	<div class="charts_container">
+		<div class="chart_container">
 			<svg id="chart_1" class="chart"></svg>
-		  </div>
-		  <div class="chart_container">
-			<svg id="chart_2" class="chart"></svg>
-		  </div>
-		  <div class="chart_container">
-			<svg id="chart_3" class="chart"></svg>
-		  </div>
-		  <div class="chart_container">
-			<svg id="chart_4" class="chart"></svg>
-		  </div>
 		</div>
+		<div class="chart_container">
+			<svg id="chart_2" class="chart"></svg>
+		</div>
+		<div class="chart_container">
+			<svg id="chart_3" class="chart"></svg>
+		</div>
+		<div class="chart_container">
+			<svg id="chart_4" class="chart"></svg>
+		</div>
+	</div>
+
+	<div class="main_chart_container">
+		<svg id="main_chart" class="chart"></svg>
+	</div>
 		
-	  <div class="filter_contaniner">
+	<div class="filter_contaniner">
 		<label for="country-filter">Countries Filter</label>
 		<select id="country-filter" name="states[]" multiple="multiple"></select>
 		<div id="country-color"></div>
-		
+
 		<div style="white-space:nowrap">
 			<label for="year-range-label">Year Range:</label>
 			<input type="text" id="year-range-label" readonly>
 		</div>
 		<div id="year-range-filter"></div>
-		
-	  </div>
+	</div>
+
   </div>
+
 </div>
 
 <div id='tooltip' class="tooltip"></div>

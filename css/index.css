@@ -9,7 +9,7 @@
 }
 
 .charts_container {
-	width: 75%;
+	width: 50%;
 	float: left;
 }
 
@@ -24,6 +24,11 @@
 	height:100%;
 }
 
+.main_chart_container {
+	width: 30%;
+	float: left;
+}
+
 .tooltip {
 	position:absolute;
 	background-color:lightgray;
@@ -31,7 +36,7 @@
 }
 
 .filter_contaniner {
-	width: 25%;
+	width: 20%;
 	float: left;
 }
 

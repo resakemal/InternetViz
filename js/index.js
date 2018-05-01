@@ -224,7 +224,7 @@ function initRange() {
 	y_4 = d3.scaleLinear().domain([0, 100]).range([height, 0]);
 
 	// Define x and y axis for charts
-	xAxis = d3.axisBottom(x).tickFormat(d3.format('.4')).ticks(Math.ceil((yearEnd-yearStart)/2));
+	xAxis = d3.axisBottom(x).tickFormat(d3.format('.4')).ticks(Math.ceil((yearEnd-yearStart)/3));
 	yAxis_1 = d3.axisLeft(y_1).tickFormat(d3.format('.2s')).ticks(5);
 	yAxis_2 = d3.axisLeft(y_2).tickFormat(d3.format('.2s')).ticks(2);
 	yAxis_3 = d3.axisLeft(y_3).tickFormat(d3.format('.2s')).ticks(10);
