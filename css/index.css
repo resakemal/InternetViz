@@ -4,19 +4,16 @@ body {
   margin: 0px 0px;
 }
 
-
 .navbar_container {
 }
 
 .content_container {
-  /*background-color: #7200FFFF;*/
   display: flex;
   flex-direction: row;
   height: 92%;
 }
 
 .charts_container {
-  /*background-color: #FFC600FF;*/
   flex: 8 1 auto;
   display: flex;
   flex-direction: column;
@@ -44,7 +41,6 @@ body {
 }
 
 .filter_contaniner {
-  /*background-color: #FF0057FF;*/
   flex: 2 1 auto;
   padding-right: 15px;
   padding-left: 15px;
@@ -70,7 +66,6 @@ body {
 }
 
 .upper_row {
-  /*background-color: #00FFF4FF;*/
   flex: 1 1 auto;
   display: flex;
   flex-direction: row;
@@ -78,7 +73,6 @@ body {
 }
 
 .lower_row {
-  /*background-color: #4CB255FF;*/
   display: flex;
   flex: 4 1 auto;
   padding: 5px;
