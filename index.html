@@ -3,47 +3,72 @@
 <link rel="stylesheet" href="css/select2.min.css">
 <link rel="stylesheet" href="css/spectrum.css" />
 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 <div>
-  <div class="navbar_container">NAVBAR</div>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Country Statistic</a>
+      </div>
+    </div>
+  </nav>
 
   <div class="content_container">
 
-  	<div class="charts_container">
-		<div class="chart_container">
-			<svg id="chart_1" class="chart"></svg>
-		</div>
-		<div class="chart_container">
-			<svg id="chart_2" class="chart"></svg>
-		</div>
-		<div class="chart_container">
-			<svg id="chart_3" class="chart"></svg>
-		</div>
-		<div class="chart_container">
-			<svg id="chart_4" class="chart"></svg>
-		</div>
-	</div>
+    <div class="col-md-9">
+      <div class="charts_container">
 
-	<div class="main_chart_container">
-		<svg id="main_chart" class="chart"></svg>
-	</div>
-		
-	<div class="filter_contaniner">
-		<label for="country-filter">Countries Filter</label>
-		<select id="country-filter" name="states[]" multiple="multiple"></select>
-		<div id="country-color"></div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="chart_container">
+              <svg id="chart_1" class="chart"></svg>
+            </div>
+          </div>
 
-		<div style="white-space:nowrap">
-			<label for="year-range-label">Year Range:</label>
-			<input type="text" id="year-range-label" readonly>
-		</div>
-		<div id="year-range-filter"></div>
-	</div>
+          <div class="col-md-6">
+            <div class="chart_container">
+              <svg id="chart_2" class="chart"></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="chart_container">
+              <svg id="chart_3" class="chart"></svg>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="chart_container">
+              <svg id="chart_4" class="chart"></svg>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-md-3">
+    <div class="filter_contaniner">
+      <label for="country-filter">Countries Filter</label>
+      <select id="country-filter" name="states[]" multiple="multiple"></select>
+      <div id="country-color"></div>
+
+      <div style="white-space:nowrap">
+        <label for="year-range-label">Year Range:</label>
+        <input type="text" id="year-range-label" readonly>
+      </div>
+      <div id="year-range-filter"></div>
+      </div>
+    </div>
 
   </div>
-
 </div>
 
-<div id='tooltip' class="tooltip"></div>
+<div id='tooltip_1' class="tooltip"></div>
 
 <script src="js/d3.v4.min.js"></script>
 <script src="js/jquery.min.js"></script>
