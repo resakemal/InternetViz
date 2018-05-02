@@ -3,6 +3,7 @@ const line_1 = d3.line().x(d => x(d.year)).y(d => y_1(d.val));
 const line_2 = d3.line().x(d => x(d.year)).y(d => y_2(d.val));
 const line_3 = d3.line().x(d => x(d.year)).y(d => y_3(d.val));
 const line_4 = d3.line().x(d => x(d.year)).y(d => y_4(d.val));
+const line_main = d3.line().x(d => x_main(d.year)).y(d => y_main(d.val));
 
 const LINE_STROKE = 1
 const colorPalette = [
@@ -16,9 +17,9 @@ const colorPalette = [
 	["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
 ]
 				
-var height, width, x, y_1, y_2, y_3, y_4;
-var xAxis, yAxis_1, yAxis_2, yAxis_3, yAxis_4;
-var chart_1, chart_2, chart_3, chart_4;
+var height, width, height_main, width_main, x, x_main, y_1, y_2, y_3, y_4, y_main;
+var xAxis, xAxis_main, yAxis_1, yAxis_2, yAxis_3, yAxis_4, yAxis_main;
+var chart_1, chart_2, chart_3, chart_4, main_chart;
 var states, tipBox_1, tipBox_2, tipBox_3, tipBox_4;
 var tooltip, tooltipLine_1, tooltipLine_2, tooltipLine_3, tooltipLine_4;
 var yearStart = 2000;
@@ -215,20 +216,27 @@ function initRange() {
 	// Define margins, dimensions, and some line colors
 	width = $("#chart_1").width() - margin.left - margin.right;
 	height = $("#chart_1").height() - margin.top - margin.bottom;
+	width_main = $("#main_chart").width() - margin.left - margin.right;
+	height_main = $("#main_chart").height() - margin.top - margin.bottom;
+
 
 	// Define the scales and tell D3 how to draw the line
-	x = d3.scaleLinear().domain([yearStart, yearEnd]).range([0, width]);     
+	x = d3.scaleLinear().domain([yearStart, yearEnd]).range([0, width]);
+	x_main = d3.scaleLinear().domain([yearStart, yearEnd]).range([0, width_main]);     
 	y_1 = d3.scaleLinear().domain([0, 100]).range([height, 0]);
 	y_2 = d3.scaleLinear().domain([0, 40]).range([height, 0]);
 	y_3 = d3.scaleLinear().domain([0, 200]).range([height, 0]);
 	y_4 = d3.scaleLinear().domain([0, 100]).range([height, 0]);
+	y_main = d3.scaleLinear().domain([0, 200]).range([height_main, 0]);
 
 	// Define x and y axis for charts
 	xAxis = d3.axisBottom(x).tickFormat(d3.format('.4')).ticks(Math.ceil((yearEnd-yearStart)/3));
+	xAxis_main = d3.axisBottom(x_main).tickFormat(d3.format('.4')).ticks(Math.ceil((yearEnd-yearStart)/3));
 	yAxis_1 = d3.axisLeft(y_1).tickFormat(d3.format('.2s')).ticks(5);
 	yAxis_2 = d3.axisLeft(y_2).tickFormat(d3.format('.2s')).ticks(2);
 	yAxis_3 = d3.axisLeft(y_3).tickFormat(d3.format('.2s')).ticks(10);
 	yAxis_4 = d3.axisLeft(y_4).tickFormat(d3.format('.2s')).ticks(5);
+	yAxis_main = d3.axisLeft(y_main).tickFormat(d3.format('.2s')).ticks(20);
 }
 
 
@@ -298,6 +306,7 @@ function drawTooltip_4() {
 }
 
 function drawGraph() {
+	// Chart 1
 	d3.select('#chart_1').selectAll("*").remove();
 	chart_1 = d3.select('#chart_1').append('g')
 	  .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -307,9 +316,9 @@ function drawGraph() {
 	// Add the axes and a title
 	chart_1.append('g').call(yAxis_1); 
 	chart_1.append('g').attr('transform', 'translate(0,' + height + ')').call(xAxis);
-	// chart_1.append('text').html('Broadband Subscription').attr('x', $("#chart_1").width()/3);
 	chart_1 = chart_1.append('g');
 
+	// Chart 2
 	d3.select('#chart_2').selectAll("*").remove();
 	chart_2 = d3.select('#chart_2').append('g')
 	  .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -319,9 +328,9 @@ function drawGraph() {
 	// Add the axes and a title
 	chart_2.append('g').call(yAxis_2); 
 	chart_2.append('g').attr('transform', 'translate(0,' + height + ')').call(xAxis);
-	// chart_1.append('text').html('Broadband Subscription').attr('x', $("#chart_1").width()/3);
 	chart_2 = chart_2.append('g');
 
+	// Chart 3
 	d3.select('#chart_3').selectAll("*").remove();
 	chart_3 = d3.select('#chart_3').append('g')
 	  .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -331,9 +340,9 @@ function drawGraph() {
 	// Add the axes and a title
 	chart_3.append('g').call(yAxis_3); 
 	chart_3.append('g').attr('transform', 'translate(0,' + height + ')').call(xAxis);
-	// chart_1.append('text').html('Broadband Subscription').attr('x', $("#chart_1").width()/3);
 	chart_3 = chart_3.append('g');
 
+	// Chart 4
 	d3.select('#chart_4').selectAll("*").remove();
 	chart_4 = d3.select('#chart_4').append('g')
 	  .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -343,8 +352,17 @@ function drawGraph() {
 	// Add the axes and a title
 	chart_4.append('g').call(yAxis_4); 
 	chart_4.append('g').attr('transform', 'translate(0,' + height + ')').call(xAxis);
-	// chart_1.append('text').html('Broadband Subscription').attr('x', $("#chart_1").width()/3);
 	chart_4 = chart_4.append('g');
+
+	// Main Chart
+	d3.select('#main_chart').selectAll("*").remove();
+	main_chart = d3.select('#main_chart').append('g')
+	  .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+	
+	// Add the axes and a title
+	main_chart.append('g').call(yAxis_main); 
+	main_chart.append('g').attr('transform', 'translate(0,' + height_main + ')').call(xAxis_main);
+	main_chart = main_chart.append('g');
 
 	drawLines();
 }
@@ -352,6 +370,7 @@ function drawGraph() {
 function drawLines() {
 	states = countries.filter(function(d){return d.show;});
 
+	// Chart 1
 	paths = chart_1.selectAll("path")
 		.data(states);
 
@@ -380,6 +399,7 @@ function drawLines() {
 		.on('mousemove', drawTooltip_1)
 		.on('mouseout', removeTooltip);
 
+	// Chart 2
 	paths = chart_2.selectAll("path")
 		.data(states);
 
@@ -408,6 +428,7 @@ function drawLines() {
 		.on('mousemove', drawTooltip_2)
 		.on('mouseout', removeTooltip);
 
+	// Chart 3
 	paths = chart_3.selectAll("path")
 		.data(states);
 
@@ -436,6 +457,7 @@ function drawLines() {
 		.on('mousemove', drawTooltip_3)
 		.on('mouseout', removeTooltip);
 
+	// Chart 4
 	paths = chart_4.selectAll("path")
 		.data(states);
 
@@ -463,6 +485,96 @@ function drawLines() {
 		.attr('opacity', 0)
 		.on('mousemove', drawTooltip_4)
 		.on('mouseout', removeTooltip);
+
+	// Main cCart
+	joined = main_chart.selectAll(".line_group")
+		.data(states)
+		.each(function(d,i) {
+			console.log("Joined " + d.id)
+		});
+
+	// Update Existing
+	joined.selectAll("*").remove();
+	joined.append("path")
+		.attr('fill', 'none')
+		.attr('stroke', d => d.color)
+		.attr('stroke-width', LINE_STROKE)
+		.attr('stroke-linecap', "round")
+		.attr('stroke-dasharray', "2, 2")
+		.datum(d => d.data_telp.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
+		.attr('d', line_main);
+		
+	joined.append("path")
+		.attr('fill', 'none')
+		.attr('stroke', d => d.color)
+		.attr('stroke-width', LINE_STROKE)
+		.attr('stroke-dasharray', "15, 15")
+		.datum(d => d.data_broad.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
+		.attr('d', line_main);
+		
+	joined.append("path")
+		.attr('fill', 'none')
+		.attr('stroke', d => d.color)
+		.attr('stroke-width', LINE_STROKE)
+		.attr('stroke-linecap', "round")
+		.attr('stroke-dasharray', "20,10,5,5,5,10")
+		.datum(d => d.data_mobile.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
+		.attr('d', line_main);
+		
+	joined.append("path")
+		.attr('fill', 'none').attr('stroke', d => d.color)
+		.attr('stroke-width', LINE_STROKE)
+		.datum(d => d.data_internet.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
+		.attr('d', line_main);
+
+	// Add new
+	enter = joined.enter()
+		.append("g")
+		.attr("class", "line_group")
+		.each(function(d,i) {
+			console.log("Entered " + d.id)
+		})
+
+	enter.append("path")
+		.attr('fill', 'none')
+		.attr('stroke', d => d.color)
+		.attr('stroke-width', LINE_STROKE)
+		.attr('stroke-linecap', "round")
+		.attr('stroke-dasharray', "2, 3")
+		.datum(d => d.data_telp.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
+		.attr('d', line_main);
+
+	enter.append("path")
+		.attr('fill', 'none')
+		.attr('stroke', d => d.color)
+		.attr('stroke-width', LINE_STROKE)
+		.attr('stroke-dasharray', "15, 15")
+		.datum(d => d.data_broad.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
+		.attr('d', line_main);
+
+	enter.append("path")
+		.attr('fill', 'none')
+		.attr('stroke', d => d.color)
+		.attr('stroke-width', LINE_STROKE)
+		.datum(d => d.data_mobile.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
+		.attr('d', line_main);
+
+	enter.append("path")
+		.attr('fill', 'none')
+		.attr('stroke', d => d.color)
+		.attr('stroke-width', LINE_STROKE)
+		.attr('stroke-linecap', "round")
+		.attr('stroke-dasharray', "20,10,5,5,5,10")
+		.datum(d => d.data_internet.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
+		.attr('d', line_main);
+	
+	// Remove excess
+	exit = joined.exit()
+		.each(function(d,i) {
+			console.log("Exited " + d.id)
+		});
+	exit.selectAll("*").remove();
+	exit.remove();
 }
 
 
@@ -482,8 +594,6 @@ function countryFilterChangeHandler() {
 	names = $('#country-filter').val();
 	names = names === null ? [] : names;
 	data = countries.filter(function(d) {return names.includes(d.id) || d.id == "Average";})
-	
-	console.log(data)
 
 	joined = d3.select("#country-color")
 		.selectAll(".legend_div")
@@ -493,7 +603,6 @@ function countryFilterChangeHandler() {
 	joined.select("input")
 		.attr("id", function(d,i) {return "legend_color_" + i;})
 		.each(function(d,i) {
-			console.log("Joined " + d.id)
 			d.show = true;
 			$("#legend_color_"+i).spectrum("set", d.color);
 			$("#legend_color_"+i)
@@ -515,7 +624,6 @@ function countryFilterChangeHandler() {
 		.attr("type", "text")
 		.attr("id", function(d,i) {return "legend_color_" + i;})
 		.each(function(d,i) {
-			console.log("Enter " + d.id)
 			d.show = true
 			$("#legend_color_"+i).spectrum({
 				color: d.color,
@@ -535,7 +643,6 @@ function countryFilterChangeHandler() {
 	
 	exit = joined.exit()
 	exit.each(function(d,i) {
-		console.log("Exit " + d.id)
 		$("#legend_color_"+i).spectrum("destroy");
 		d.show = false
 	})
