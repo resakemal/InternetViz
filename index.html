@@ -1,12 +1,16 @@
-<link rel="stylesheet" href="css/index.css">
-<link rel="stylesheet" href="css/jquery-ui.css">
-<link rel="stylesheet" href="css/select2.min.css">
-<link rel="stylesheet" href="css/spectrum.css" />
+<html>
+<header>
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/select2.min.css">
+  <link rel="stylesheet" href="css/spectrum.css" />
+  <!-- <link rel="stylesheet" href="css/custom-bootstrap.css" /> -->
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+</header>
 
-<div>
+<body>
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -17,67 +21,59 @@
 
   <div class="content_container">
 
-    <div class="col-md-9">
-      <div class="charts_container">
-
-        <div class="row">
-          <div class="col-md-3">
-            <div class="chart_container">
-              <h5 class="text-center">Telephone</h5>
-              <svg id="chart_1" class="chart"></svg>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="chart_container">
-              <h5 class="text-center">Broadband</h5>
-              <svg id="chart_2" class="chart"></svg>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="chart_container">
-              <h5 class="text-center">Mobile</h5>
-              <svg id="chart_3" class="chart"></svg>
-            </div>
-          </div>
-          <div class="col-md-3">
-            <div class="chart_container">
-              <h5 class="text-center">Internet</h5>
-              <svg id="chart_4" class="chart"></svg>
-            </div>
+    <div class="charts_container">
+      <div class="upper_row">
+        <div class="col_small">
+          <h5 class="text-center">Telephone</h5>
+          <div class="chart_container">
+            <svg id="chart_1" class="chart"></svg>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-md-12 center-block">
-            <div class="chart_container">
-              <h4 class="text-center">Main Chart</h4>
-              <svg id="main_chart" class="chart"></svg>
-            </div>
+        <div class="col_small">
+          <h5 class="text-center">Broadband</h5>
+          <div class="chart_container">
+            <svg id="chart_2" class="chart"></svg>
           </div>
         </div>
+        <div class="col_small">
+          <h5 class="text-center">Mobile</h5>
+          <div class="chart_container">
+            <svg id="chart_3" class="chart"></svg>
+          </div>
+        </div>
+        <div class="col_small">
+          <h5 class="text-center">Internet</h5>
+          <div class="chart_container">
+            <svg id="chart_4" class="chart"></svg>
+          </div>
+        </div>
+      </div>
 
+      <div class="lower_row">
+        <div class="main_chart_container">
+          <h4 class="text-center">Main Chart</h4>
+          <svg id="main_chart" class="chart"></svg>
+        </div>
       </div>
     </div>
 
-    <div class="col-md-3">
-      <div class="filter_contaniner">
-        <label for="country-filter">Countries Filter</label>
-        <select id="country-filter" name="states[]" multiple="multiple"></select>
-        <div id="country-color"></div>
+    <div class="filter_contaniner">
+      <label for="country-filter">Countries Filter</label>
+      <select id="country-filter" name="states[]" multiple="multiple"></select>
+      <div id="country-color"></div>
 
-        <div style="white-space:nowrap">
-          <label for="year-range-label">Year Range:</label>
-          <input type="text" id="year-range-label" readonly>
-        </div>
-        <div id="year-range-filter"></div>
+      <div style="white-space:nowrap">
+        <label for="year-range-label">Year Range:</label>
+        <input type="text" id="year-range-label" readonly>
       </div>
+      <div id="year-range-filter"></div>
     </div>
 
   </div>
-</div>
+</body>
+<div id='tooltip' class="custom_tooltip" style="display: none;"></div>
 
-<div id='tooltip_1' class="tooltip"></div>
-
+</html>
 <script src="js/d3.v4.min.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.js"></script>

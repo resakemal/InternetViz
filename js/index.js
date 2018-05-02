@@ -1,4 +1,4 @@
-const margin = {top: 40, right: 40, bottom: 30, left: 40};
+const margin = {top: 10, right: 25, bottom: 20, left: 25};
 const line_1 = d3.line().x(d => x(d.year)).y(d => y_1(d.val));
 const line_2 = d3.line().x(d => x(d.year)).y(d => y_2(d.val));
 const line_3 = d3.line().x(d => x(d.year)).y(d => y_3(d.val));
@@ -599,7 +599,7 @@ function countryFilterChangeHandler() {
 		.selectAll(".legend_div")
 		.data(data, function(d) { return d.id })
 	joined.select("p")
-		.text(function(d,i) {return (i+1) + ". " + d.id;})
+		.text(function(d) {return d.id;})
 	joined.select("input")
 		.attr("id", function(d,i) {return "legend_color_" + i;})
 		.each(function(d,i) {
@@ -619,8 +619,10 @@ function countryFilterChangeHandler() {
 		.append("div")
 		.attr("class", "legend_div")
 	enter.append("p")
-		.text(function(d,i) { return (i+1) + ". " + d.id; })
+		.attr("class", "label_color_pick")
+		.text(function(d) { return d.id; })
 	enter.append("input")
+		.attr("class", "color_pick")
 		.attr("type", "text")
 		.attr("id", function(d,i) {return "legend_color_" + i;})
 		.each(function(d,i) {
