@@ -21,29 +21,37 @@
       <div class="charts_container">
 
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-3">
             <div class="chart_container">
+              <h5 class="text-center">Telephone</h5>
               <svg id="chart_1" class="chart"></svg>
             </div>
           </div>
-
-          <div class="col-md-6">
+          <div class="col-md-3">
             <div class="chart_container">
+              <h5 class="text-center">Broadband</h5>
               <svg id="chart_2" class="chart"></svg>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="chart_container">
+              <h5 class="text-center">Mobile</h5>
+              <svg id="chart_3" class="chart"></svg>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="chart_container">
+              <h5 class="text-center">Internet</h5>
+              <svg id="chart_4" class="chart"></svg>
             </div>
           </div>
         </div>
 
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-12 center-block">
             <div class="chart_container">
-              <svg id="chart_3" class="chart"></svg>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="chart_container">
-              <svg id="chart_4" class="chart"></svg>
+              <h4 class="text-center">Main Chart</h4>
+              <svg id="main_chart" class="chart"></svg>
             </div>
           </div>
         </div>
@@ -52,16 +60,16 @@
     </div>
 
     <div class="col-md-3">
-    <div class="filter_contaniner">
-      <label for="country-filter">Countries Filter</label>
-      <select id="country-filter" name="states[]" multiple="multiple"></select>
-      <div id="country-color"></div>
+      <div class="filter_contaniner">
+        <label for="country-filter">Countries Filter</label>
+        <select id="country-filter" name="states[]" multiple="multiple"></select>
+        <div id="country-color"></div>
 
-      <div style="white-space:nowrap">
-        <label for="year-range-label">Year Range:</label>
-        <input type="text" id="year-range-label" readonly>
-      </div>
-      <div id="year-range-filter"></div>
+        <div style="white-space:nowrap">
+          <label for="year-range-label">Year Range:</label>
+          <input type="text" id="year-range-label" readonly>
+        </div>
+        <div id="year-range-filter"></div>
       </div>
     </div>
 

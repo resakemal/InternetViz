@@ -5,32 +5,32 @@
 }
 
 .charts_container {
-	display: table;
+  display: table;
 }
 
 .chart_container {
-	display: table;
+  background-color: #00FFF4FF;
+  display: table;
 }
 
 .chart {
 }
 
 .main_chart_container {
-	width: 30%;
-	float: left;
 }
 
 .tooltip {
-	position:absolute;
-	background-color:lightgray;
-	padding:5px;
+  position:absolute;
+  background-color:lightgray;
+  padding:5px;
 }
 
 .filter_contaniner {
+  background-color: #24DA76FF;
 }
 
 #country-filter {
-	width: 100%;
+  width: 100%;
 }
 
 .legend_div {
