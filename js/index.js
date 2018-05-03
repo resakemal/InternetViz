@@ -5,16 +5,18 @@ const line_3 = d3.line().x(d => x(d.year)).y(d => y_3(d.val));
 const line_4 = d3.line().x(d => x(d.year)).y(d => y_4(d.val));
 const line_main = d3.line().x(d => x_main(d.year)).y(d => y_main(d.val));
 
+const dasharray_1 = "2, 4"
+const dasharray_2 = "15, 5"
+const dasharray_3 = "25, 5, 5, 5"
+const dasharray_4 = "0"
+
 const LINE_STROKE = 1
 const colorPalette = [
 	["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
 	["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
 	["#f4cccc","#fce5cd","#fff2cc","#d9ead3","#d0e0e3","#cfe2f3","#d9d2e9","#ead1dc"],
-	["#ea9999","#f9cb9c","#ffe599","#b6d7a8","#a2c4c9","#9fc5e8","#b4a7d6","#d5a6bd"],
 	["#e06666","#f6b26b","#ffd966","#93c47d","#76a5af","#6fa8dc","#8e7cc3","#c27ba0"],
-	["#c00","#e69138","#f1c232","#6aa84f","#45818e","#3d85c6","#674ea7","#a64d79"],
-	["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47"],
-	["#600","#783f04","#7f6000","#274e13","#0c343d","#073763","#20124d","#4c1130"]
+	["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47"]
 ]
 				
 var height, width, height_main, width_main, x, x_main, y_1, y_2, y_3, y_4, y_main;
@@ -90,58 +92,60 @@ var countries_filter = [
 	]}
 ]
 
+var countries_shown = [50]
+
 var countries = [
-	{"id": "Argentina", "color": "red", "show": false},
-	{"id": "Australia", "color": "red", "show": false},
-	{"id": "Austria", "color": "red", "show": false},
-	{"id": "Bahrain", "color": "red", "show": false},
-	{"id": "Belgium", "color": "red", "show": false},
-	{"id": "Brazil", "color": "red", "show": false},
-	{"id": "Canada", "color": "red", "show": false},
-	{"id": "China", "color": "red", "show": false},
-	{"id": "Croatia", "color": "red", "show": false},
-	{"id": "Czech Republic", "color": "red", "show": false},
-	{"id": "Denmark", "color": "red", "show": false},
-	{"id": "Dominican Rep.", "color": "red", "show": false},
-	{"id": "Egypt", "color": "red", "show": false},
-	{"id": "Finland", "color": "red", "show": false},
-	{"id": "France", "color": "red", "show": false},
-	{"id": "Germany", "color": "red", "show": false},
-	{"id": "Greece", "color": "red", "show": false},
-	{"id": "Hong Kong, China", "color": "red", "show": false},
-	{"id": "Hungary", "color": "red", "show": false},
-	{"id": "India", "color": "red", "show": false},
-	{"id": "Indonesia", "color": "red", "show": false},
-	{"id": "Ireland", "color": "red", "show": false},
-	{"id": "Italy", "color": "red", "show": false},
-	{"id": "Japan", "color": "red", "show": false},
-	{"id": "Jordan", "color": "red", "show": false},
-	{"id": "Korea (Rep.)", "color": "red", "show": false},
-	{"id": "Macao, China", "color": "red", "show": false},
-	{"id": "Malaysia", "color": "red", "show": false},
-	{"id": "Mexico", "color": "red", "show": false},
-	{"id": "Morocco", "color": "red", "show": false},
-	{"id": "Netherlands", "color": "red", "show": false},
-	{"id": "Norway", "color": "red", "show": false},
-	{"id": "Poland", "color": "red", "show": false},
-	{"id": "Portugal", "color": "red", "show": false},
-	{"id": "Romania", "color": "red", "show": false},
-	{"id": "Russian Federation", "color": "red", "show": false},
-	{"id": "Saudi Arabia", "color": "red", "show": false},
-	{"id": "Singapore", "color": "red", "show": false},
-	{"id": "South Africa", "color": "red", "show": false},
-	{"id": "Spain", "color": "red", "show": false},
-	{"id": "Sweden", "color": "red", "show": false},
-	{"id": "Switzerland", "color": "red", "show": false},
-	{"id": "Thailand", "color": "red", "show": false},
-	{"id": "Tunisia", "color": "red", "show": false},
-	{"id": "Turkey", "color": "red", "show": false},
-	{"id": "United Arab Emirates", "color": "red", "show": false},
-	{"id": "United Kingdom", "color": "red", "show": false},
-	{"id": "United States", "color": "red", "show": false},
-	{"id": "Viet Nam", "color": "red", "show": false},
-	{"id": "Zimbabwe", "color": "red", "show": false},
-	{"id": "Average", "color": "red", "show": true}
+	{"id": "Argentina", "color": "#000", "show": false},
+	{"id": "Australia", "color": "#000", "show": false},
+	{"id": "Austria", "color": "#000", "show": false},
+	{"id": "Bahrain", "color": "#000", "show": false},
+	{"id": "Belgium", "color": "#000", "show": false},
+	{"id": "Brazil", "color": "#000", "show": false},
+	{"id": "Canada", "color": "#000", "show": false},
+	{"id": "China", "color": "#000", "show": false},
+	{"id": "Croatia", "color": "#000", "show": false},
+	{"id": "Czech Republic", "color": "#000", "show": false},
+	{"id": "Denmark", "color": "#000", "show": false},
+	{"id": "Dominican Rep.", "color": "#000", "show": false},
+	{"id": "Egypt", "color": "#000", "show": false},
+	{"id": "Finland", "color": "#000", "show": false},
+	{"id": "France", "color": "#000", "show": false},
+	{"id": "Germany", "color": "#000", "show": false},
+	{"id": "Greece", "color": "#000", "show": false},
+	{"id": "Hong Kong, China", "color": "#000", "show": false},
+	{"id": "Hungary", "color": "#000", "show": false},
+	{"id": "India", "color": "#000", "show": false},
+	{"id": "Indonesia", "color": "#000", "show": false},
+	{"id": "Ireland", "color": "#000", "show": false},
+	{"id": "Italy", "color": "#000", "show": false},
+	{"id": "Japan", "color": "#000", "show": false},
+	{"id": "Jordan", "color": "#000", "show": false},
+	{"id": "Korea (Rep.)", "color": "#000", "show": false},
+	{"id": "Macao, China", "color": "#000", "show": false},
+	{"id": "Malaysia", "color": "#000", "show": false},
+	{"id": "Mexico", "color": "#000", "show": false},
+	{"id": "Morocco", "color": "#000", "show": false},
+	{"id": "Netherlands", "color": "#000", "show": false},
+	{"id": "Norway", "color": "#000", "show": false},
+	{"id": "Poland", "color": "#000", "show": false},
+	{"id": "Portugal", "color": "#000", "show": false},
+	{"id": "Romania", "color": "#000", "show": false},
+	{"id": "Russian Federation", "color": "#000", "show": false},
+	{"id": "Saudi Arabia", "color": "#000", "show": false},
+	{"id": "Singapore", "color": "#000", "show": false},
+	{"id": "South Africa", "color": "#000", "show": false},
+	{"id": "Spain", "color": "#000", "show": false},
+	{"id": "Sweden", "color": "#000", "show": false},
+	{"id": "Switzerland", "color": "#000", "show": false},
+	{"id": "Thailand", "color": "#000", "show": false},
+	{"id": "Tunisia", "color": "#000", "show": false},
+	{"id": "Turkey", "color": "#000", "show": false},
+	{"id": "United Arab Emirates", "color": "#000", "show": false},
+	{"id": "United Kingdom", "color": "#000", "show": false},
+	{"id": "United States", "color": "#000", "show": false},
+	{"id": "Viet Nam", "color": "#000", "show": false},
+	{"id": "Zimbabwe", "color": "#000", "show": false},
+	{"id": "Average", "color": "#000", "show": true}
 ];
 
 
@@ -292,15 +296,12 @@ function drawTooltip(tipBox, tooltipLine, dataName) {
 function drawTooltip_1() {
 	drawTooltip(tipBox_1, tooltipLine_1, "data_telp");
 }
-
 function drawTooltip_2() {
 	drawTooltip(tipBox_2, tooltipLine_2, "data_broad");
 }
-
 function drawTooltip_3() {
 	drawTooltip(tipBox_3, tooltipLine_3, "data_mobile");
 }
-
 function drawTooltip_4() {
 	drawTooltip(tipBox_4, tooltipLine_4, "data_internet");
 }
@@ -368,8 +369,9 @@ function drawGraph() {
 }
 
 function drawLines() {
-	states = countries.filter(function(d){return d.show;});
+	states = countries.filter(function(d, i){ return countries_shown.includes(i); });
 
+	
 	// Chart 1
 	paths = chart_1.selectAll("path")
 		.data(states);
@@ -378,6 +380,7 @@ function drawLines() {
 	paths.attr('fill', 'none')
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
+		.attr('stroke-dasharray', dasharray_1)
 		.datum(d => d.data_telp.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
 		.attr('d', line_1);
 
@@ -386,6 +389,7 @@ function drawLines() {
 		.attr('fill', 'none')
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
+		.attr('stroke-dasharray', dasharray_1)
 		.datum(d => d.data_telp.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
 		.attr('d', line_1);
 	
@@ -399,6 +403,7 @@ function drawLines() {
 		.on('mousemove', drawTooltip_1)
 		.on('mouseout', removeTooltip);
 
+		
 	// Chart 2
 	paths = chart_2.selectAll("path")
 		.data(states);
@@ -407,6 +412,7 @@ function drawLines() {
 	paths.attr('fill', 'none')
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
+		.attr('stroke-dasharray', dasharray_2)
 		.datum(d => d.data_broad.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
 		.attr('d', line_2);
 
@@ -415,6 +421,7 @@ function drawLines() {
 		.attr('fill', 'none')
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
+		.attr('stroke-dasharray', dasharray_2)
 		.datum(d => d.data_broad.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
 		.attr('d', line_2);
 	
@@ -428,6 +435,7 @@ function drawLines() {
 		.on('mousemove', drawTooltip_2)
 		.on('mouseout', removeTooltip);
 
+		
 	// Chart 3
 	paths = chart_3.selectAll("path")
 		.data(states);
@@ -436,6 +444,7 @@ function drawLines() {
 	paths.attr('fill', 'none')
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
+		.attr('stroke-dasharray', dasharray_3)
 		.datum(d => d.data_mobile.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
 		.attr('d', line_3);
 
@@ -444,6 +453,7 @@ function drawLines() {
 		.attr('fill', 'none')
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
+		.attr('stroke-dasharray', dasharray_3)
 		.datum(d => d.data_mobile.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
 		.attr('d', line_3);
 	
@@ -457,6 +467,7 @@ function drawLines() {
 		.on('mousemove', drawTooltip_3)
 		.on('mouseout', removeTooltip);
 
+		
 	// Chart 4
 	paths = chart_4.selectAll("path")
 		.data(states);
@@ -465,6 +476,7 @@ function drawLines() {
 	paths.attr('fill', 'none')
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
+		.attr('stroke-dasharray', dasharray_4)
 		.datum(d => d.data_internet.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
 		.attr('d', line_4);
 
@@ -473,6 +485,7 @@ function drawLines() {
 		.attr('fill', 'none')
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
+		.attr('stroke-dasharray', dasharray_4)
 		.datum(d => d.data_internet.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
 		.attr('d', line_4);
 	
@@ -486,12 +499,10 @@ function drawLines() {
 		.on('mousemove', drawTooltip_4)
 		.on('mouseout', removeTooltip);
 
-	// Main cCart
+		
+	// Main Chart
 	joined = main_chart.selectAll(".line_group")
 		.data(states)
-		.each(function(d,i) {
-			console.log("Joined " + d.id)
-		});
 
 	// Update Existing
 	joined.selectAll("*").remove();
@@ -499,8 +510,7 @@ function drawLines() {
 		.attr('fill', 'none')
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
-		.attr('stroke-linecap', "round")
-		.attr('stroke-dasharray', "2, 2")
+		.attr('stroke-dasharray', dasharray_1)
 		.datum(d => d.data_telp.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
 		.attr('d', line_main);
 		
@@ -508,7 +518,7 @@ function drawLines() {
 		.attr('fill', 'none')
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
-		.attr('stroke-dasharray', "15, 15")
+		.attr('stroke-dasharray', dasharray_2)
 		.datum(d => d.data_broad.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
 		.attr('d', line_main);
 		
@@ -516,14 +526,15 @@ function drawLines() {
 		.attr('fill', 'none')
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
-		.attr('stroke-linecap', "round")
-		.attr('stroke-dasharray', "20,10,5,5,5,10")
+		.attr('stroke-dasharray', dasharray_3)
 		.datum(d => d.data_mobile.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
 		.attr('d', line_main);
 		
 	joined.append("path")
-		.attr('fill', 'none').attr('stroke', d => d.color)
+		.attr('fill', 'none')
+		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
+		.attr('stroke-dasharray', dasharray_4)
 		.datum(d => d.data_internet.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
 		.attr('d', line_main);
 
@@ -531,16 +542,12 @@ function drawLines() {
 	enter = joined.enter()
 		.append("g")
 		.attr("class", "line_group")
-		.each(function(d,i) {
-			console.log("Entered " + d.id)
-		})
 
 	enter.append("path")
 		.attr('fill', 'none')
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
-		.attr('stroke-linecap', "round")
-		.attr('stroke-dasharray', "2, 3")
+		.attr('stroke-dasharray', dasharray_1)
 		.datum(d => d.data_telp.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
 		.attr('d', line_main);
 
@@ -548,7 +555,7 @@ function drawLines() {
 		.attr('fill', 'none')
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
-		.attr('stroke-dasharray', "15, 15")
+		.attr('stroke-dasharray', dasharray_2)
 		.datum(d => d.data_broad.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
 		.attr('d', line_main);
 
@@ -556,6 +563,7 @@ function drawLines() {
 		.attr('fill', 'none')
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
+		.attr('stroke-dasharray', dasharray_3)
 		.datum(d => d.data_mobile.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
 		.attr('d', line_main);
 
@@ -563,16 +571,12 @@ function drawLines() {
 		.attr('fill', 'none')
 		.attr('stroke', d => d.color)
 		.attr('stroke-width', LINE_STROKE)
-		.attr('stroke-linecap', "round")
-		.attr('stroke-dasharray', "20,10,5,5,5,10")
+		.attr('stroke-dasharray', dasharray_4)
 		.datum(d => d.data_internet.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
 		.attr('d', line_main);
 	
 	// Remove excess
 	exit = joined.exit()
-		.each(function(d,i) {
-			console.log("Exited " + d.id)
-		});
 	exit.selectAll("*").remove();
 	exit.remove();
 }
@@ -591,25 +595,20 @@ function updateCountry() {
 
 
 function countryFilterChangeHandler() {
-	names = $('#country-filter').val();
-	names = names === null ? [] : names;
-	data = countries.filter(function(d) {return names.includes(d.id) || d.id == "Average";})
-
 	joined = d3.select("#country-color")
 		.selectAll(".legend_div")
-		.data(data, function(d) { return d.id })
+		.data(countries_shown, function(d) { return d })
 	joined.select("p")
-		.text(function(d) {return d.id;})
+		.text(function(d) {return countries[d].id;})
 	joined.select("input")
 		.attr("id", function(d,i) {return "legend_color_" + i;})
 		.each(function(d,i) {
-			d.show = true;
-			$("#legend_color_"+i).spectrum("set", d.color);
+			$("#legend_color_"+i).spectrum("set", countries[d].color);
 			$("#legend_color_"+i)
 				.off('change.spectrum move.spectrum')
 				.on('change.spectrum move.spectrum', function(e, color) {
-					if (d.color != color) {
-						d.color = color;
+					if (countries[d].color != color) {
+						countries[d].color = color;
 						updateColor();
 					}
 				});
@@ -620,15 +619,14 @@ function countryFilterChangeHandler() {
 		.attr("class", "legend_div")
 	enter.append("p")
 		.attr("class", "label_color_pick")
-		.text(function(d) { return d.id; })
+		.text(function(d) { return countries[d].id; })
 	enter.append("input")
 		.attr("class", "color_pick")
 		.attr("type", "text")
 		.attr("id", function(d,i) {return "legend_color_" + i;})
 		.each(function(d,i) {
-			d.show = true
 			$("#legend_color_"+i).spectrum({
-				color: d.color,
+				color: countries[d].color,
 				showPaletteOnly: true,
 				togglePaletteOnly: true,
 				togglePaletteMoreText: 'more',
@@ -636,8 +634,8 @@ function countryFilterChangeHandler() {
 				palette: colorPalette
 			});
 			$("#legend_color_"+i).on('change.spectrum move.spectrum', function(e, color) {
-				if (d.color != color) {
-					d.color = color;
+				if (countries[d].color != color) {
+					countries[d].color = color;
 					updateColor();
 				}
 			});
@@ -646,11 +644,24 @@ function countryFilterChangeHandler() {
 	exit = joined.exit()
 	exit.each(function(d,i) {
 		$("#legend_color_"+i).spectrum("destroy");
-		d.show = false
 	})
 	exit.remove()
 	
 	updateCountry();
+}
+
+function countryFilterAddedHandler(e) {
+	var data = e.params.data;
+	id = countries.findIndex(function(d) {return d.id == data.id})
+	countries_shown.push(id)   	
+	countryFilterChangeHandler();
+}
+function countryFilterRemoveHandler(e) {
+	var data = e.params.data;
+	id = countries.findIndex(function(d) {return d.id == data.id})
+	idx = countries_shown.indexOf(id);
+	countries_shown.splice(idx, 1);
+	countryFilterChangeHandler();
 }
 
 function yearFilterChangeHandler(event, ui) {
@@ -671,8 +682,8 @@ function initFilter() {
 		allowClear: true,
 	});
 	
-	$('#country-filter').on('select2:select', function (e) {countryFilterChangeHandler();});
-	$('#country-filter').on('select2:unselect', function (e) {countryFilterChangeHandler();});
+	$('#country-filter').on('select2:select', function (e) {countryFilterAddedHandler(e);});
+	$('#country-filter').on('select2:unselect', function (e) {countryFilterRemoveHandler(e);});
 
 	$( "#year-range-filter" ).slider({
 		range: true,
@@ -690,9 +701,9 @@ function initFilter() {
     })
 	.each(function() {
 		var vals = 2016 - 2000;
-		for (var i = 0; i <= vals; i+=2) {
-			year = i < 10 ? "'0" + i : "'" + i
-			var el = $('<label>' + year + '</label>').css('left', (i/vals*100) + '%');
+		for (var i = 0; i <= vals; i+=4) {
+			year = i < 10 ? "200" + i : "20" + i
+			var el = $('<label class="year_label">' + year + '</label>').css('left', (i/vals*100) + '%');
 			$("#year-range-filter").append(el);
 		}
 	})
