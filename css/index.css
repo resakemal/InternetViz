@@ -149,3 +149,15 @@ label.aspect-label:hover {
   background:#eee;
   cursor:pointer;
 }
+
+.introduction {
+  text-align: justify;
+  padding: 5px;
+}
+
+.custom_tooltip {
+  position:absolute;
+  background-color:lightgray;
+  padding:5px;
+  z-index:10;
+}
