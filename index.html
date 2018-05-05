@@ -14,55 +14,68 @@
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">Country Statistic</a>
+        <a class="navbar-brand" href="#">Country Statistic of Connectivity</a>
       </div>
     </div>
   </nav>
 
-  <div class="content_container">
+  <div class="content-container">
+    <div class="charts-container">
+      <div class="chart-upper-row border">
 
-    <div class="charts_container">
-      <div class="upper_row">
-        <div class="col_small">
+        <div class="small-container">
+          <p>
+            Since the internet was created in 1960, it has brought an enormous change to humanity by connecting people and data from across the globe. Overtime, the number of people accessing the internet is constantly growing while it's access methods are also evolving. Here we present the data of the aforementioned topics on the year 2000-2016.
+          </p>
+        </div>
+        <div class="small-chart-container">
           <h5 class="text-center">Telephone</h5>
-          <div class="chart_container">
+          <div class="chart-container">
             <svg id="chart_1" class="chart"></svg>
           </div>
         </div>
-        <div class="col_small">
+        <div class="small-chart-container">
           <h5 class="text-center">Broadband</h5>
-          <div class="chart_container">
+          <div class="chart-container">
             <svg id="chart_2" class="chart"></svg>
           </div>
         </div>
-        <div class="col_small">
-          <h5 class="text-center">Mobile</h5>
-          <div class="chart_container">
-            <svg id="chart_3" class="chart"></svg>
+
+      </div>
+      <div class="chart-lower-row border">
+        <div class="chart-left-row">
+
+          <div class="small-chart-container">
+            <h5 class="text-center">Mobile</h5>
+            <div class="chart-container">
+              <svg id="chart_3" class="chart"></svg>
+            </div>
           </div>
+          <div class="small-chart-container">
+            <h5 class="text-center">Internet</h5>
+            <div class="chart-container">
+              <svg id="chart_4" class="chart"></svg>
+            </div>
+          </div>
+
         </div>
-        <div class="col_small">
-          <h5 class="text-center">Internet</h5>
-          <div class="chart_container">
-            <svg id="chart_4" class="chart"></svg>
+        <div class="chart-right-row">
+          <div class="main-chart-container bor">
+            <h4 class="text-center">Main Chart</h4>
+            <svg id="main_chart" class="chart"></svg>
           </div>
         </div>
       </div>
 
-      <div class="lower_row">
-        <div class="main_chart_container">
-          <h4 class="text-center">Main Chart</h4>
-          <svg id="main_chart" class="chart"></svg>
-        </div>
-      </div>
     </div>
 
-    <div class="filter_contaniner">
+    <div class="filter-container">
+
       <label for="country-filter">Countries Filter</label><br>
       <select id="country-filter" name="states[]" multiple="multiple"></select>
       <div id="country-color"></div>
       
-    <hr>
+      <hr/>
     
       <div style="white-space:nowrap">
         <label for="year-range-label">Year Range:</label>
@@ -70,35 +83,35 @@
       </div>
       <div id="year-range-filter"></div>
       
-    <br><hr>
-    <label>Main Chart Aspect Filter</label>
-    <label class="aspect-label">
-      <input type="checkbox" id="aspect-telephone" checked/> Telephone Line
-      <svg height="12px" width="40%" style="float: right;" >
-        <line stroke-dasharray="2, 4" x1="0%" y1="50%" x2="100%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:2" />
-      </svg>
-    </label>
+      <br/><hr/>
+      <label>Main Chart Aspect Filter</label>
+      <label class="aspect-label">
+        <input type="checkbox" id="aspect-telephone" checked/> Telephone Line
+        <svg height="12px" width="40%" style="float: right;" >
+          <line stroke-dasharray="2, 4" x1="0%" y1="50%" x2="100%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:2" />
+        </svg>
+      </label>
 
-    <label class="aspect-label">
-      <input type="checkbox" id="aspect-broadband" checked/> Broadband Subscriber
-      <svg height="12px" width="40%" style="float: right;" >
-        <line stroke-dasharray="15, 5" x1="0%" y1="50%" x2="100%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:2" />
-      </svg>
-    </label>
+      <label class="aspect-label">
+        <input type="checkbox" id="aspect-broadband" checked/> Broadband Subscriber
+        <svg height="12px" width="40%" style="float: right;" >
+          <line stroke-dasharray="15, 5" x1="0%" y1="50%" x2="100%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:2" />
+        </svg>
+      </label>
 
-    <label class="aspect-label">
-      <input type="checkbox" id="aspect-mobile" checked/> Mobile Data Subscriber
-      <svg height="12px" width="40%" style="float: right;" >
-        <line stroke-dasharray="25, 5, 5, 5" x1="0%" y1="50%" x2="100%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:2" />
-      </svg>
-    </label>
+      <label class="aspect-label">
+        <input type="checkbox" id="aspect-mobile" checked/> Mobile Data Subscriber
+        <svg height="12px" width="40%" style="float: right;" >
+          <line stroke-dasharray="25, 5, 5, 5" x1="0%" y1="50%" x2="100%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:2" />
+        </svg>
+      </label>
 
-    <label class="aspect-label">
-      <input type="checkbox" id="aspect-internet" checked/> Internet User
-      <svg height="12px" width="40%" style="float: right;" >
-        <line stroke-dasharray="0" x1="0%" y1="50%" x2="100%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:2" />
-      </svg>
-    </label>
+      <label class="aspect-label">
+        <input type="checkbox" id="aspect-internet" checked/> Internet User
+        <svg height="12px" width="40%" style="float: right;" >
+          <line stroke-dasharray="0" x1="0%" y1="50%" x2="100%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:2" />
+        </svg>
+      </label>
     
     </div>
 
