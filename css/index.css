@@ -38,16 +38,23 @@ body {
   position:absolute;
   background-color:lightgray;
   padding:5px;
+  z-index:10;
 }
 
 .filter_contaniner {
   flex: 2 1 auto;
   padding-right: 15px;
   padding-left: 15px;
+  max-width: 20%;
+  min-width: 300px;
 }
 
 #country-filter {
   width: 100%;
+}
+.select2-container {
+  width: 100% !important;
+  padding: 0;
 }
 
 .legend_div {
@@ -87,7 +94,7 @@ h4, h5 {
 #country-color {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 100%;
   padding: 10px;
 }
 
@@ -111,4 +118,21 @@ h4, h5 {
 .select2-selection__choice {
   width: 43%;
   overflow: hidden;
+}
+
+.year_label {
+  font-size: 10px;
+}
+
+label.aspect-label {
+  border:1px solid #ccc;
+  padding:5px;
+  margin:0 0 10px;
+  display:block; 
+  font-size: 12px;
+}
+
+label.aspect-label:hover {
+  background:#eee;
+  cursor:pointer;
 }

@@ -11,6 +11,7 @@ const dasharray_3 = "25, 5, 5, 5"
 const dasharray_4 = "0"
 
 const LINE_STROKE = 1
+const LINE_STROKE_MAIN = 1.5
 const colorPalette = [
 	["#000","#444","#666","#999","#ccc","#eee","#f3f3f3","#fff"],
 	["#f00","#f90","#ff0","#0f0","#0ff","#00f","#90f","#f0f"],
@@ -19,13 +20,18 @@ const colorPalette = [
 	["#900","#b45f06","#bf9000","#38761d","#134f5c","#0b5394","#351c75","#741b47"]
 ]
 				
-var height, width, height_main, width_main, x, x_main, y_1, y_2, y_3, y_4, y_main;
+var height, width, height_main, width_main;
+var x, x_main, y_1, y_2, y_3, y_4, y_main;
 var xAxis, xAxis_main, yAxis_1, yAxis_2, yAxis_3, yAxis_4, yAxis_main;
+
 var chart_1, chart_2, chart_3, chart_4, main_chart;
 var states, tipBox_1, tipBox_2, tipBox_3, tipBox_4;
+
 var tooltip, tooltipLine_1, tooltipLine_2, tooltipLine_3, tooltipLine_4;
+
 var yearStart = 2000;
 var yearEnd = 2016;
+var show_1=true, show_2=true, show_3=true, show_4=true;
 
 var countries_filter = [
 	{"text": "Africa", "children" : [
@@ -96,7 +102,7 @@ var countries_shown = [50]
 
 var countries = [
 	{"id": "Argentina", "color": "#000", "show": false},
-	{"id": "Australia", "color": "#000", "show": false},
+	{"id": "Australia", "color": "#00f", "show": false},
 	{"id": "Austria", "color": "#000", "show": false},
 	{"id": "Bahrain", "color": "#000", "show": false},
 	{"id": "Belgium", "color": "#000", "show": false},
@@ -115,7 +121,7 @@ var countries = [
 	{"id": "Hong Kong, China", "color": "#000", "show": false},
 	{"id": "Hungary", "color": "#000", "show": false},
 	{"id": "India", "color": "#000", "show": false},
-	{"id": "Indonesia", "color": "#000", "show": false},
+	{"id": "Indonesia", "color": "#f00", "show": false},
 	{"id": "Ireland", "color": "#000", "show": false},
 	{"id": "Italy", "color": "#000", "show": false},
 	{"id": "Japan", "color": "#000", "show": false},
@@ -235,7 +241,7 @@ function initRange() {
 
 	// Define x and y axis for charts
 	xAxis = d3.axisBottom(x).tickFormat(d3.format('.4')).ticks(Math.ceil((yearEnd-yearStart)/3));
-	xAxis_main = d3.axisBottom(x_main).tickFormat(d3.format('.4')).ticks(Math.ceil((yearEnd-yearStart)/3));
+	xAxis_main = d3.axisBottom(x_main).tickFormat(d3.format('.4')).ticks(Math.ceil((yearEnd-yearStart)));
 	yAxis_1 = d3.axisLeft(y_1).tickFormat(d3.format('.2s')).ticks(5);
 	yAxis_2 = d3.axisLeft(y_2).tickFormat(d3.format('.2s')).ticks(2);
 	yAxis_3 = d3.axisLeft(y_3).tickFormat(d3.format('.2s')).ticks(10);
@@ -371,7 +377,6 @@ function drawGraph() {
 function drawLines() {
 	states = countries.filter(function(d, i){ return countries_shown.includes(i); });
 
-	
 	// Chart 1
 	paths = chart_1.selectAll("path")
 		.data(states);
@@ -498,89 +503,100 @@ function drawLines() {
 		.attr('opacity', 0)
 		.on('mousemove', drawTooltip_4)
 		.on('mouseout', removeTooltip);
-
 		
-	// Main Chart
+	drawMainLines();
+}
+function drawMainLines() {
 	joined = main_chart.selectAll(".line_group")
 		.data(states)
 
 	// Update Existing
 	joined.selectAll("*").remove();
-	joined.append("path")
-		.attr('fill', 'none')
-		.attr('stroke', d => d.color)
-		.attr('stroke-width', LINE_STROKE)
-		.attr('stroke-dasharray', dasharray_1)
-		.datum(d => d.data_telp.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
-		.attr('d', line_main);
-		
-	joined.append("path")
-		.attr('fill', 'none')
-		.attr('stroke', d => d.color)
-		.attr('stroke-width', LINE_STROKE)
-		.attr('stroke-dasharray', dasharray_2)
-		.datum(d => d.data_broad.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
-		.attr('d', line_main);
-		
-	joined.append("path")
-		.attr('fill', 'none')
-		.attr('stroke', d => d.color)
-		.attr('stroke-width', LINE_STROKE)
-		.attr('stroke-dasharray', dasharray_3)
-		.datum(d => d.data_mobile.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
-		.attr('d', line_main);
-		
-	joined.append("path")
-		.attr('fill', 'none')
-		.attr('stroke', d => d.color)
-		.attr('stroke-width', LINE_STROKE)
-		.attr('stroke-dasharray', dasharray_4)
-		.datum(d => d.data_internet.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
-		.attr('d', line_main);
-
+	
+	if(show_1) {
+		joined.append("path")
+			.attr('fill', 'none')
+			.attr('stroke', d => d.color)
+			.attr('stroke-width', LINE_STROKE_MAIN)
+			.attr('stroke-dasharray', dasharray_1)
+			.datum(d => d.data_telp.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
+			.attr('d', line_main);
+	}
+	if(show_2) {
+		joined.append("path")
+			.attr('fill', 'none')
+			.attr('stroke', d => d.color)
+			.attr('stroke-width', LINE_STROKE_MAIN)
+			.attr('stroke-dasharray', dasharray_2)
+			.datum(d => d.data_broad.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
+			.attr('d', line_main);
+	}
+	if(show_3) {	
+		joined.append("path")
+			.attr('fill', 'none')
+			.attr('stroke', d => d.color)
+			.attr('stroke-width', LINE_STROKE_MAIN)
+			.attr('stroke-dasharray', dasharray_3)
+			.datum(d => d.data_mobile.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
+			.attr('d', line_main);
+	}
+	if(show_4) {
+		joined.append("path")
+			.attr('fill', 'none')
+			.attr('stroke', d => d.color)
+			.attr('stroke-width', LINE_STROKE_MAIN)
+			.attr('stroke-dasharray', dasharray_4)
+			.datum(d => d.data_internet.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
+			.attr('d', line_main);
+	}
+	
 	// Add new
 	enter = joined.enter()
 		.append("g")
 		.attr("class", "line_group")
 
-	enter.append("path")
-		.attr('fill', 'none')
-		.attr('stroke', d => d.color)
-		.attr('stroke-width', LINE_STROKE)
-		.attr('stroke-dasharray', dasharray_1)
-		.datum(d => d.data_telp.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
-		.attr('d', line_main);
+	if(show_1) {
+		enter.append("path")
+			.attr('fill', 'none')
+			.attr('stroke', d => d.color)
+			.attr('stroke-width', LINE_STROKE_MAIN)
+			.attr('stroke-dasharray', dasharray_1)
+			.datum(d => d.data_telp.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
+			.attr('d', line_main);
+	}
+	if(show_2) {
+		enter.append("path")
+			.attr('fill', 'none')
+			.attr('stroke', d => d.color)
+			.attr('stroke-width', LINE_STROKE_MAIN)
+			.attr('stroke-dasharray', dasharray_2)
+			.datum(d => d.data_broad.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
+			.attr('d', line_main);
+	}
+	if(show_3) {
+		enter.append("path")
+			.attr('fill', 'none')
+			.attr('stroke', d => d.color)
+			.attr('stroke-width', LINE_STROKE_MAIN)
+			.attr('stroke-dasharray', dasharray_3)
+			.datum(d => d.data_mobile.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
+			.attr('d', line_main);
+	}
+	if(show_4) {
+		enter.append("path")
+			.attr('fill', 'none')
+			.attr('stroke', d => d.color)
+			.attr('stroke-width', LINE_STROKE_MAIN)
+			.attr('stroke-dasharray', dasharray_4)
+			.datum(d => d.data_internet.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
+			.attr('d', line_main);
+	}
 
-	enter.append("path")
-		.attr('fill', 'none')
-		.attr('stroke', d => d.color)
-		.attr('stroke-width', LINE_STROKE)
-		.attr('stroke-dasharray', dasharray_2)
-		.datum(d => d.data_broad.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
-		.attr('d', line_main);
-
-	enter.append("path")
-		.attr('fill', 'none')
-		.attr('stroke', d => d.color)
-		.attr('stroke-width', LINE_STROKE)
-		.attr('stroke-dasharray', dasharray_3)
-		.datum(d => d.data_mobile.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
-		.attr('d', line_main);
-
-	enter.append("path")
-		.attr('fill', 'none')
-		.attr('stroke', d => d.color)
-		.attr('stroke-width', LINE_STROKE)
-		.attr('stroke-dasharray', dasharray_4)
-		.datum(d => d.data_internet.filter(function(d){return d.year >= yearStart && d.year <= yearEnd;}))
-		.attr('d', line_main);
-	
 	// Remove excess
 	exit = joined.exit()
 	exit.selectAll("*").remove();
 	exit.remove();
 }
-
 
 function updateColor() {
 	drawLines();
@@ -684,7 +700,7 @@ function initFilter() {
 	
 	$('#country-filter').on('select2:select', function (e) {countryFilterAddedHandler(e);});
 	$('#country-filter').on('select2:unselect', function (e) {countryFilterRemoveHandler(e);});
-
+	
 	$( "#year-range-filter" ).slider({
 		range: true,
 		min: 2000,
@@ -711,8 +727,41 @@ function initFilter() {
 		$("#year-range-filter").slider("values", 0) +" - "+ $("#year-range-filter").slider("values", 1) 
 	);
 	
+	$('#aspect-telephone').change(function () {
+		show_1 = !show_1;
+		drawMainLines();
+	});
+	$('#aspect-broadband').change(function () {
+		show_2 = !show_2;
+		drawMainLines();
+	});
+	$('#aspect-mobile').change(function () {
+		show_3 = !show_3;
+		drawMainLines();
+	});
+	$('#aspect-internet').change(function () {
+		show_4 = !show_4;
+		drawMainLines();
+	});	
 }
 
+function initSelection() {
+	selected = ['Australia', 'Indonesia']
+	$('#country-filter').val(selected);
+	$('#country-filter').trigger('change');
+	
+	for(i=0; i<selected.length; i++) {
+		data = {"id": selected[i]};
+		$('#country-filter').trigger({
+			type: 'select2:select',
+			params: {
+				data: data
+			}
+		});		
+	}
+	$('#aspect-telephone').prop('checked', false).change();
+	$('#aspect-broadband').prop('checked', false).change();
+}
 
 $(document).ready(function() {
 	load_data();
@@ -721,8 +770,7 @@ $(document).ready(function() {
 	
 	tooltip = d3.select('#tooltip');
 	drawGraph();
-	
-	countryFilterChangeHandler();
+	initSelection();
 });
 
 window.onresize = function(event) {

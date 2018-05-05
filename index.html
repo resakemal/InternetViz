@@ -58,15 +58,45 @@
     </div>
 
     <div class="filter_contaniner">
-      <label for="country-filter">Countries Filter</label>
+      <label for="country-filter">Countries Filter</label><br>
       <select id="country-filter" name="states[]" multiple="multiple"></select>
       <div id="country-color"></div>
-
+      
+	  <hr>
+	  
       <div style="white-space:nowrap">
         <label for="year-range-label">Year Range:</label>
         <input type="text" id="year-range-label" readonly>
       </div>
       <div id="year-range-filter"></div>
+      
+	  <br><hr>
+	  <label>Main Chart Aspect Filter</label>
+	  <label class="aspect-label">
+		<input type="checkbox" id="aspect-telephone" checked> Telephone Line
+		<svg height="12px" width="100%">
+		  <line stroke-dasharray="2, 4" x1="0%" y1="50%" x2="100%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:2" />
+		</svg>
+	  </label>
+	  <label class="aspect-label">
+		<input type="checkbox" id="aspect-broadband" checked> Broadband Subscriber
+		<svg height="12px" width="100%">
+		  <line stroke-dasharray="15, 5" x1="0%" y1="50%" x2="100%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:2" />
+		</svg>
+	  </label>
+	  <label class="aspect-label">
+		<input type="checkbox" id="aspect-mobile" checked> Mobile Data Subscriber
+		<svg height="12px" width="100%">
+		  <line stroke-dasharray="25, 5, 5, 5" x1="0%" y1="50%" x2="100%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:2" />
+		</svg>
+	  </label>
+	  <label class="aspect-label">
+		<input type="checkbox" id="aspect-internet" checked> Internet User
+		<svg height="12px" width="100%">
+		  <line stroke-dasharray="0" x1="0%" y1="50%" x2="100%" y2="50%" style="stroke:rgb(0,0,0);stroke-width:2" />
+		</svg>
+	  </label>
+	  
     </div>
 
   </div>
