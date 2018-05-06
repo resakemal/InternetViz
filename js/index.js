@@ -69,7 +69,7 @@ var countries_filter = [
 		{"id": "Bahrain", "text": "Bahrain"}, 
 		{"id": "China", "text": "China"}, 
 		{"id": "Egypt", "text": "Egypt"}, 
-		{"id": "Hong Kong, China", "text": "Hong Kong, China"}, 
+		{"id": "Hong Kong", "text": "Hong Kong, China"}, 
 		{"id": "India", "text": "India"}, 
 		{"id": "Indonesia", "text": "Indonesia"}, 
 		{"id": "Japan", "text": "Japan"}, 
