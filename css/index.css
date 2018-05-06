@@ -53,6 +53,8 @@ body {
 
 .chart-container {
   max-height: 25%;
+  padding-left: 10px;
+  /*background-color: #E816CCFF;*/
 }
 
 .chart {
@@ -152,12 +154,14 @@ label.aspect-label:hover {
 
 .introduction {
   text-align: justify;
+  font-size: 12px;
   padding: 5px;
 }
 
 .custom_tooltip {
   position:absolute;
-  background-color:lightgray;
+  background-color:#2B47D366;
   padding:5px;
   z-index:10;
+  font-weight: bold;
 }
