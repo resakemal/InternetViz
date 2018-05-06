@@ -21,7 +21,8 @@ body {
   display: flex;
   flex-direction: row;
   /*background-color: #2B9FD3FF;*/
-  padding: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .chart-lower-row {
@@ -29,14 +30,16 @@ body {
   flex-direction: row;
   flex: 3 1 auto;
   /*background-color: #FFC700FF;*/
-  padding: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .chart-left-row {
   display: flex;
   flex-direction: column;
   flex: 1 1 20%;
-  padding: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .chart-right-row {
@@ -49,6 +52,7 @@ body {
   flex: 1 1 20%;
   padding-top: 5px;
   padding-left: 10px;
+  padding-right: 5px;
   /*background-color: #FFF600FF; */
 }
 
