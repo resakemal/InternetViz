@@ -144,6 +144,29 @@
   </div>
 </div>
 
+<!-- Modal COMPARISON -->
+<div class="modal fade" id="comparisonmodal" tabindex="-1" role="dialog" aria-labelledby="comparisonmodalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="comparisonmodalLabel">Comparison Chart</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Chart containing comparison of all 4 charts (Telephone Line, Broadband, Moble Data and Internet).
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <body>
   <div class="navbar navbar-dark bg-primary">
@@ -220,7 +243,11 @@
         </div>
         <div class="chart-right-row">
           <div class="main-chart-container bor">
-            <h4 class="text-center">Summary of Connection Subscription</h4>
+            <div class="text-center">
+              <button type="button" class="btn btn-light w-100" data-toggle="modal" data-target="#comparisonmodal">
+                <h4>Comparison Chart</h4>
+              </button>
+            </div>
             <svg id="main_chart" class="chart"></svg>
           </div>
         </div>
@@ -243,7 +270,7 @@
       <div id="year-range-filter"></div>
       
       <br/><hr/>
-      <label>Summary  Chart Filter</label>
+      <label>Comparison Chart Filter</label>
       <label class="aspect-label">
         <input type="checkbox" id="aspect-telephone" checked/> Telephone Line Subscription
         <svg height="12px" width="30%" style="float: right;" >
