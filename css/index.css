@@ -47,13 +47,13 @@ body {
 
 .small-chart-container {
   flex: 1 1 20%;
-/*  background-color: #FFF600FF;
-*/  border:  
+  padding-top: 5px;
+  padding-left: 10px;
+  /*background-color: #FFF600FF; */
 }
 
 .chart-container {
   max-height: 25%;
-  padding-left: 10px;
   /*background-color: #E816CCFF;*/
 }
 
@@ -75,6 +75,7 @@ body {
 
 .filter-container {
   flex: 2 1 auto;
+  padding-top: 10px;
   padding-right: 15px;
   padding-left: 15px;
   max-width: 20%;
